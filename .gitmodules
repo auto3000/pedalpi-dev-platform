@@ -10,3 +10,6 @@
 	path = meta-raspberrypi
 	url = git://git.yoctoproject.org/meta-raspberrypi
 	branch = morty
+[submodule "meta-pedalpi"]
+	path = meta-pedalpi
+	url = https://github.com/auto3000/meta-pedalpi
