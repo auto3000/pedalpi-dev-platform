@@ -1,6 +1,5 @@
 # LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
 # changes incompatibly
-LCONF_VERSION = "6"
 
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
@@ -12,7 +11,7 @@ BBLAYERS ?= " \
   ${TOPDIR}/../meta-openembedded/meta-oe \
   ${TOPDIR}/../meta-openembedded/meta-filesystems \
   ${TOPDIR}/../meta-openembedded/meta-python \
-  ${TOPDIR}/../meta-pedalpi/meta-pedalpi \
+  ${TOPDIR}/../meta-pedalpi/ \
   "
 
 BBLAYERS_NON_REMOVABLE ?= " \
