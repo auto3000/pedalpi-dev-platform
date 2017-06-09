@@ -16,9 +16,8 @@ function setupGitSubmodules() {
 
     local targets=(
         "raspberrypi2"
-        "raspberrypi3"
+        "raspberrypi3")
     local supported=(
-        "qemux86-64"
         "raspberrypi2"
         "raspberrypi3")
     local modules=()
