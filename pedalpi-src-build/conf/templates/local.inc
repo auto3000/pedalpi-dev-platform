@@ -6,5 +6,3 @@ USER_CLASSES ?= "buildstats image-mklibs image-prelink"
 PATCHRESOLVE ?= "noop"
 LICENSE_FLAGS_WHITELIST  += "commercial"
 
-#INCOMPATIBLE_LICENSE ?= "GPLv3"
-
