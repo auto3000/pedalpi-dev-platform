@@ -13,3 +13,9 @@
 [submodule "meta-pedalpi"]
 	path = meta-pedalpi
 	url = https://github.com/auto3000/meta-pedalpi
+[submodule "meta-qt5-extra"]
+	path = meta-qt5-extra
+	url = git://github.com/schnitzeltony/meta-qt5-extra.git
+[submodule "meta-qt5"]
+	path = meta-qt5
+	url = git://github.com/meta-qt5/meta-qt5.git
