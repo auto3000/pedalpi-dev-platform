@@ -15,9 +15,11 @@ function setupGitSubmodules() {
     echo "You selected target $choice"
 
     local targets=(
+        "qemux86-64"
         "raspberrypi2"
         "raspberrypi3")
     local supported=(
+        "qemux86-64"
         "raspberrypi2"
         "raspberrypi3")
     local modules=()
@@ -60,6 +62,7 @@ function setupGitSubmodules() {
     # Define hardware-dependent layers.
     # Multiple layers can be specified for a target if space-separated.
     declare -A bsparr
+    bsparr["qemux86-64"]=""
     bsparr["raspberrypi2"]="meta-raspberrypi"
     bsparr["raspberrypi3"]="meta-raspberrypi"
 
