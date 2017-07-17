@@ -17,11 +17,13 @@ function setupGitSubmodules() {
     local targets=(
         "qemux86-64"
         "raspberrypi2"
-        "raspberrypi3")
+        "raspberrypi3"
+        "nanopi-neo-air")
     local supported=(
         "qemux86-64"
         "raspberrypi2"
-        "raspberrypi3")
+        "raspberrypi3"
+	"nanopi-neo-air")
     local modules=()
     local target=""
 
@@ -65,6 +67,7 @@ function setupGitSubmodules() {
     bsparr["qemux86-64"]=""
     bsparr["raspberrypi2"]="meta-raspberrypi"
     bsparr["raspberrypi3"]="meta-raspberrypi"
+    bsparr["nanopi-neo-air"]="meta-sunxi meta-omega"
 
     # This looks somewhat complex but the intention is to clone only needed
     # submodules.  The module list is calculated as : all the submodules we
