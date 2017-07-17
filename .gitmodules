@@ -13,3 +13,9 @@
 [submodule "meta-pedalpi"]
 	path = meta-pedalpi
 	url = https://github.com/auto3000/meta-pedalpi
+[submodule "meta-omega"]
+	path = meta-omega
+	url = https://github.com/lcrb/meta-omega
+[submodule "meta-sunxi"]
+	path = meta-sunxi
+	url = https://github.com/linux-sunxi/meta-sunxi
