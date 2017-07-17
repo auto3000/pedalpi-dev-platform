@@ -23,7 +23,7 @@ function setupGitSubmodules() {
         "qemux86-64"
         "raspberrypi2"
         "raspberrypi3"
-	"nanopi-neo-air")
+        "nanopi-neo-air")
     local modules=()
     local target=""
 
