@@ -19,3 +19,6 @@
 [submodule "meta-sunxi"]
 	path = meta-sunxi
 	url = https://github.com/linux-sunxi/meta-sunxi
+[submodule "meta-nanopi-neo-air"]
+	path = meta-nanopi-neo-air
+	url = https://github.com/auto3000/meta-nanopi-neo-air
