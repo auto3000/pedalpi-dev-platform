@@ -67,7 +67,7 @@ function setupGitSubmodules() {
     bsparr["qemux86-64"]=""
     bsparr["raspberrypi2"]="meta-raspberrypi"
     bsparr["raspberrypi3"]="meta-raspberrypi"
-    bsparr["nanopi-neo-air"]="meta-sunxi meta-omega"
+    bsparr["nanopi-neo-air"]="meta-sunxi meta-nanopi-neo-air"
 
     # This looks somewhat complex but the intention is to clone only needed
     # submodules.  The module list is calculated as : all the submodules we
