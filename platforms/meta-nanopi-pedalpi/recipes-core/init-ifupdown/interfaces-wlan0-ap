@@ -11,9 +11,9 @@ iface wlan0 inet static
         broadcast 10.10.10.255
         network 10.10.10.0    
         netmask 255.255.255.0
-        post-up /etc/init.d/dhcp-server start
-        post-down /etc/init.d/dhcp-server stop
 
+#       post-up /etc/init.d/dhcp-server start
+#       post-down /etc/init.d/dhcp-server stop
 #	wireless_mode managed
 #	wireless_essid any
 #	wpa-driver wext
