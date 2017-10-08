@@ -11,5 +11,6 @@ BBLAYERS ?= " \
   ${TOPDIR}/../meta-openembedded/meta-python \
   ${TOPDIR}/../meta-openembedded/meta-ruby \
   ${TOPDIR}/../meta-pedalpi/ \
+  ${TOPDIR}/../platforms/meta-common \
   "
 
