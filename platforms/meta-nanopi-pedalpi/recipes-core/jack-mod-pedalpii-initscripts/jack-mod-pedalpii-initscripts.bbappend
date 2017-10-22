@@ -26,7 +26,7 @@ amixer set Mic2 Playback 0
 logger 'Resulting amixer configuration:'
 amixer |logger
 
-OPTIONS=\" -R -P70 -t2000 -d alsa -dhw:0 -p 256 -n 2 -r 48000 --shorts -i1 -o2 -X raw \"
+OPTIONS=\" -R -P70 -t2000 -d alsa -dhw:0 -p 128 -n 2 -r 48000 --shorts -i1 -o2 -X raw \"
 
 " >> ${D}${sysconfdir}/default/jackd
 }
