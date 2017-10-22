@@ -35,7 +35,7 @@ do
       echo -n performance > \$cpu/cpufreq/scaling_governor
 done
 
-OPTIONS=\" -R -P70 -t2000 -d alsa -dhw:0 -p 128 -n 2 -r 48000 --shorts -i1 -o2 -X raw \"
+OPTIONS=\" -R -P70 -t2000 -d alsa -dhw:0 -p 64 -n 2 -r 48000 --shorts -i1 -o2 -X raw -I 31 -O 31 \"
 
 " >> ${D}${sysconfdir}/default/jackd
 }
