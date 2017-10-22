@@ -29,6 +29,12 @@ amixer |logger
 logger 'Make codec DMA affinity cpu mask=0x08 (4th cpu only)'
 echo 08 >/proc/irq/22/smp_affinity
 
+for cpu in /sys/devices/system/cpu/cpu[0-9]*
+do
+      logger "Set performance governor to \$cpu"
+      echo -n performance > \$cpu/cpufreq/scaling_governor
+done
+
 OPTIONS=\" -R -P70 -t2000 -d alsa -dhw:0 -p 128 -n 2 -r 48000 --shorts -i1 -o2 -X raw \"
 
 " >> ${D}${sysconfdir}/default/jackd
