@@ -1,14 +1,17 @@
 version: 2
 jobs:
   build:
+    environment:
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
     docker:
-      - image: debian:jessie
+      - image: crops/yocto:ubuntu-14.04-builder
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
           name: Print the Current Time
           command: date
+      - run:
+          name: Setup the qemux86-64
+          command: source init.sh qemux86-64 && bitbake core-image-minimal
 
