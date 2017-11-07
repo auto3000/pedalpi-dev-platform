@@ -4,6 +4,8 @@ jobs:
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
+      BB_NUMBER_THREADS: 4
+      PARALLEL_MAKE: -j 1
     docker:
       - image: crops/yocto:ubuntu-14.04-builder
     steps:
