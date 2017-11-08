@@ -1,3 +1,5 @@
+Continuous integration status: latest build is [![CircleCI](https://circleci.com/gh/auto3000/pedalpi-dev-platform/tree/master.svg?style=shield&circle-token=7deebe538e0b303c63efefdd48d0318eb8268e8e)](https://circleci.com/gh/auto3000/pedalpi-dev-platform/tree/master)
+
 # pedalpi development platform
 pedalpi development platform integrates pedalpi software components developed into a release that can be downloaded and run on popular hardware development boards.
 
