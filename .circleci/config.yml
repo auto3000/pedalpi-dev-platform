@@ -15,5 +15,7 @@ jobs:
           command: date
       - run:
           name: Setup the qemux86-64
-          command: source init.sh qemux86-64 && bitbake core-image-minimal
-
+          no_output_timeout: 30m
+          command: |
+            source init.sh qemux86-64
+            bitbake pedalpi-dev-platform
