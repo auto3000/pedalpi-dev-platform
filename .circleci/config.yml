@@ -5,17 +5,16 @@ jobs:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
       BB_NUMBER_THREADS: 4
-      PARALLEL_MAKE: -j 1
+      PARALLEL_MAKE: -j 2
     docker:
       - image: crops/yocto:ubuntu-14.04-builder
     steps:
       - checkout
       - run:
-          name: Print the Current Time
-          command: date
-      - run:
-          name: Setup the qemux86-64
+          name: Build and deploy the qemux86-64 image
           no_output_timeout: 30m
           command: |
+            sudo apt-get update && sudo apt-get install curl
             source init.sh qemux86-64
-            bitbake pedalpi-dev-platform
+            bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=../README.md
+            
