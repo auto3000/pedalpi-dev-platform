@@ -16,5 +16,9 @@ jobs:
           command: |
             sudo apt-get update && sudo apt-get install curl
             source init.sh qemux86-64
+            bitbake curl-native
+            echo $PATH $PWD
+            export PATH=$PATH:tmp/sysroots/x86_64-linux/usr/bin/
+            echo insecure >> ~/.curlrc
             bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=../README.md
             
