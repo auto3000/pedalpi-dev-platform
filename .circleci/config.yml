@@ -10,11 +10,23 @@ jobs:
       - image: crops/yocto:ubuntu-14.04-builder
     steps:
       - checkout
+      - restore_cache:
+              keys:
+                  - sstate-v1-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v1-{{ .Branch }}-
+                  - sstate-v1-
+      - restore_cache:
+              keys:
+                  - dldir-v1-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v1-{{ .Branch }}-
+                  - dldir-v1-
       - run:
           name: Build and deploy the qemux86-64 image
           no_output_timeout: 30m
           command: |
-            sudo apt-get update && sudo apt-get install curl
+            echo 'SCONF_VERSION = "1"'  > pedalpi-src-build/conf/site.conf
+            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> pedalpi-src-build/conf/site.conf
+            echo 'DL_DIR ?= "/tmp/downloads"' >> pedalpi-src-build/conf/site.conf
             source init.sh nanopi-neo-air
             bitbake curl-native
             echo $PATH $PWD
@@ -22,4 +34,12 @@ jobs:
             echo insecure >> ~/.curlrc
             bitbake pedalpi-dev-platform
             bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air.sunxi-sdimg
+      - save_cache:
+              key: dldir-v1-{{ .Branch }}-{{ .Revision }}
+              paths:
+                  - "/tmp/downloads"
+      - save_cache:
+              key: sstate-v1-{{ .Branch }}-{{ .Revision }}
+              paths:
+                  - "/tmp/sstate-cache"
 
