@@ -27,13 +27,14 @@ jobs:
             echo 'SCONF_VERSION = "1"'  > pedalpi-src-build/conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> pedalpi-src-build/conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> pedalpi-src-build/conf/site.conf
-            source init.sh nanopi-neo-air
-            bitbake curl-native
-            echo $PATH $PWD
+            (source init.sh qemux86-64 && bitbake curl-native)
             export PATH=$PATH:tmp/sysroots/x86_64-linux/usr/bin/
             echo insecure >> ~/.curlrc
-            bitbake pedalpi-dev-platform
-            bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air.sunxi-sdimg
+            (source init.sh nanopi-neo-air && bitbake pedalpi-dev-platform)
+            (source init.sh raspberrypi2 && bitbake pedalpi-dev-platform)
+            (source init.sh raspberrypi3 && bitbake pedalpi-dev-platform)
+            (source init.sh qemux86-64 && bitbake pedalpi-dev-platform)
+            bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air.sunxi-sdimg
       - save_cache:
               key: dldir-v1-{{ .Branch }}-{{ .Revision }}
               paths:
