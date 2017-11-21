@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build_nanopi:
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -12,35 +12,161 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v1-{{ .Branch }}-nanopi-{{ .Revision }}
+                  - sstate-v1-{{ .Branch }}-nanopi-
                   - sstate-v1-{{ .Branch }}-
                   - sstate-v1-
       - restore_cache:
               keys:
-                  - dldir-v1-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v1-{{ .Branch }}-nanopi-{{ .Revision }}
+                  - dldir-v1-{{ .Branch }}-nanopi-
+                  - dldir-v1-{{ .Branch }}-
+                  - dldir-v1-
+      - run:
+          name: Build and deploy the nanopi-neo-air image
+          no_output_timeout: 30m
+          command: |
+            source init.sh nanopi-neo-air
+            echo 'SCONF_VERSION = "1"' > conf/site.conf
+            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            bitbake curl-native
+            echo insecure >> ~/.curlrc
+            bitbake pedalpi-dev-platform
+            cd ..
+            export PATH=$PATH:pedalpi-src-build/tmp/sysroots/x86_64-linux/usr/bin/
+            bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air.sunxi-sdimg
+      - save_cache:
+              key: dldir-v1-{{ .Branch }}-nanopi-{{ .Revision }}
+              paths:
+                  - "/tmp/downloads"
+      - save_cache:
+              key: sstate-v1-{{ .Branch }}-nanopi-{{ .Revision }}
+              paths:
+                  - "/tmp/sstate-cache"
+  build_qemux86:
+    environment:
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+      BB_NUMBER_THREADS: 4
+      PARALLEL_MAKE: -j 2
+    docker:
+      - image: crops/yocto:ubuntu-14.04-builder
+    steps:
+      - checkout
+      - restore_cache:
+              keys:
+                  - sstate-v1-{{ .Branch }}-qemux86-{{ .Revision }}
+                  - sstate-v1-{{ .Branch }}-qemux86-
+                  - sstate-v1-{{ .Branch }}-
+                  - sstate-v1-
+      - restore_cache:
+              keys:
+                  - dldir-v1-{{ .Branch }}-qemux86-{{ .Revision }}
+                  - dldir-v1-{{ .Branch }}-qemux86-
                   - dldir-v1-{{ .Branch }}-
                   - dldir-v1-
       - run:
           name: Build and deploy the qemux86-64 image
           no_output_timeout: 30m
           command: |
-            echo 'SCONF_VERSION = "1"'  > pedalpi-src-build/conf/site.conf
-            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> pedalpi-src-build/conf/site.conf
-            echo 'DL_DIR ?= "/tmp/downloads"' >> pedalpi-src-build/conf/site.conf
-            (source init.sh qemux86-64 && bitbake curl-native)
-            export PATH=$PATH:tmp/sysroots/x86_64-linux/usr/bin/
-            echo insecure >> ~/.curlrc
-            (source init.sh nanopi-neo-air && bitbake pedalpi-dev-platform)
-            (source init.sh raspberrypi2 && bitbake pedalpi-dev-platform)
-            (source init.sh raspberrypi3 && bitbake pedalpi-dev-platform)
-            (source init.sh qemux86-64 && bitbake pedalpi-dev-platform)
-            bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air.sunxi-sdimg
+            source init.sh qemux86-64
+            echo 'SCONF_VERSION = "1"' > conf/site.conf
+            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            bitbake pedalpi-dev-platform
       - save_cache:
-              key: dldir-v1-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v1-{{ .Branch }}-qemux86-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v1-{{ .Branch }}-qemux86-{{ .Revision }}
+              paths:
+                  - "/tmp/sstate-cache"
+  build_raspberrypi2:
+    environment:
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+      BB_NUMBER_THREADS: 4
+      PARALLEL_MAKE: -j 2
+    docker:
+      - image: crops/yocto:ubuntu-14.04-builder
+    steps:
+      - checkout
+      - restore_cache:
+              keys:
+                  - sstate-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
+                  - sstate-v1-{{ .Branch }}-raspberrypi2-
+                  - sstate-v1-{{ .Branch }}-
+                  - sstate-v1-
+      - restore_cache:
+              keys:
+                  - dldir-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
+                  - dldir-v1-{{ .Branch }}-raspberrypi2-
+                  - dldir-v1-{{ .Branch }}-
+                  - dldir-v1-
+      - run:
+          name: Build and deploy the raspberrypi2 image
+          no_output_timeout: 30m
+          command: |
+            source init.sh raspberrypi2
+            echo 'SCONF_VERSION = "1"'  > conf/site.conf
+            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            bitbake pedalpi-dev-platform
+      - save_cache:
+              key: dldir-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
+              paths:
+                  - "/tmp/downloads"
+      - save_cache:
+              key: sstate-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
+              paths:
+                  - "/tmp/sstate-cache"
+  build_raspberrypi3:
+    environment:
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+      BB_NUMBER_THREADS: 4
+      PARALLEL_MAKE: -j 2
+    docker:
+      - image: crops/yocto:ubuntu-14.04-builder
+    steps:
+      - checkout
+      - restore_cache:
+              keys:
+                  - sstate-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
+                  - sstate-v1-{{ .Branch }}-raspberrypi3-
+                  - sstate-v1-{{ .Branch }}-
+                  - sstate-v1-
+      - restore_cache:
+              keys:
+                  - dldir-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
+                  - dldir-v1-{{ .Branch }}-raspberrypi3-
+                  - dldir-v1-{{ .Branch }}-
+                  - dldir-v1-
+      - run:
+          name: Build and deploy the raspberrypi3 image
+          no_output_timeout: 30m
+          command: |
+            source init.sh raspberrypi3
+            echo 'SCONF_VERSION = "1"'  > conf/site.conf
+            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            bitbake pedalpi-dev-platform
+      - save_cache:
+              key: dldir-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
+              paths:
+                  - "/tmp/downloads"
+      - save_cache:
+              key: sstate-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
 
+workflows:
+  version: 2
+  buildall:
+    jobs:
+      - build_raspberrypi2
+      - build_raspberrypi3
+      - build_nanopi
+      - build_qemux86
