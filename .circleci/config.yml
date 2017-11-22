@@ -44,6 +44,8 @@ jobs:
               key: sstate-v1-{{ .Branch }}-nanopi-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
+      - store_artifacts:
+          path: pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/
   build_qemux86:
     environment:
       LC_ALL: en_US.UTF-8
@@ -83,6 +85,8 @@ jobs:
               key: sstate-v1-{{ .Branch }}-qemux86-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
+      - store_artifacts:
+          path: pedalpi-src-build/tmp/deploy/images/qemux86-64/
   build_raspberrypi2:
     environment:
       LC_ALL: en_US.UTF-8
@@ -122,6 +126,8 @@ jobs:
               key: sstate-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
+      - store_artifacts:
+          path: pedalpi-src-build/tmp/deploy/images/raspberrypi2/
   build_raspberrypi3:
     environment:
       LC_ALL: en_US.UTF-8
@@ -161,6 +167,8 @@ jobs:
               key: sstate-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
+      - store_artifacts:
+          path: pedalpi-src-build/tmp/deploy/images/raspberrypi3/
 
 workflows:
   version: 2
