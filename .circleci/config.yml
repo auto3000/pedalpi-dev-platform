@@ -189,7 +189,33 @@ jobs:
             at: images
         - run:
             name: Deploy the nanopi-neo-air image
-            command: bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air.sunxi-sdimg
+            command: |
+              filename=$(ls images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
+              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+  deploy_raspberrypi2:
+    docker:
+        - image: making/alpine-java-bash-git
+    steps:
+        - checkout
+        - attach_workspace:
+            at: images
+        - run:
+            name: Deploy the raspberrypi2 image
+            command: |
+              filename=$(ls images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg)
+              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+  deploy_raspberrypi3:
+    docker:
+        - image: making/alpine-java-bash-git
+    steps:
+        - checkout
+        - attach_workspace:
+            at: images
+        - run:
+            name: Deploy the raspberrypi3 image
+            command: |
+              filename=$(ls images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg)
+              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
 
 workflows:
   version: 2
@@ -199,6 +225,18 @@ workflows:
       - build_raspberrypi3
       - build_nanopi
       - build_qemux86
+      - deploy_raspberrypi2:
+          requires:
+              - build_nanopi
+              - build_raspberrypi2
+              - build_raspberrypi3
+              - build_qemux86
+      - deploy_raspberrypi3:
+          requires:
+              - build_nanopi
+              - build_raspberrypi2
+              - build_raspberrypi3
+              - build_qemux86
       - deploy_nanopi:
           requires:
               - build_nanopi
