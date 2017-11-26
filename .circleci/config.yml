@@ -231,16 +231,25 @@ workflows:
               - build_raspberrypi2
               - build_raspberrypi3
               - build_qemux86
+          filters:
+            branches:
+              only: master
       - deploy_raspberrypi3:
           requires:
               - build_nanopi
               - build_raspberrypi2
               - build_raspberrypi3
               - build_qemux86
+          filters:
+            branches:
+              only: master
       - deploy_nanopi:
           requires:
               - build_nanopi
               - build_raspberrypi2
               - build_raspberrypi3
               - build_qemux86
+          filters:
+            branches:
+              only: master
 
