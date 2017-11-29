@@ -12,15 +12,15 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-{{ .Branch }}-nanopi-{{ .Revision }}
-                  - sstate-v1-{{ .Branch }}-nanopi-
-                  - sstate-v1-{{ .Branch }}-
+                  - sstate-v1-nanopi-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v1-nanopi-{{ .Branch }}-
+                  - sstate-v1-nanopi-
                   - sstate-v1-
       - restore_cache:
               keys:
-                  - dldir-v1-{{ .Branch }}-nanopi-{{ .Revision }}
-                  - dldir-v1-{{ .Branch }}-nanopi-
-                  - dldir-v1-{{ .Branch }}-
+                  - dldir-v1-nanopi-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v1-nanopi-{{ .Branch }}-
+                  - dldir-v1-nanopi-
                   - dldir-v1-
       - run:
           name: Build the nanopi-neo-air image
@@ -32,11 +32,11 @@ jobs:
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
             bitbake pedalpi-dev-platform
       - save_cache:
-              key: dldir-v1-{{ .Branch }}-nanopi-{{ .Revision }}
+              key: dldir-v1-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-{{ .Branch }}-nanopi-{{ .Revision }}
+              key: sstate-v1-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -57,15 +57,15 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-{{ .Branch }}-qemux86-{{ .Revision }}
-                  - sstate-v1-{{ .Branch }}-qemux86-
-                  - sstate-v1-{{ .Branch }}-
+                  - sstate-v1-qemux86-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v1-qemux86-{{ .Branch }}-
+                  - sstate-v1-qemux86-
                   - sstate-v1-
       - restore_cache:
               keys:
-                  - dldir-v1-{{ .Branch }}-qemux86-{{ .Revision }}
-                  - dldir-v1-{{ .Branch }}-qemux86-
-                  - dldir-v1-{{ .Branch }}-
+                  - dldir-v1-qemux86-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v1-qemux86-{{ .Branch }}-
+                  - dldir-v1-qemux86-
                   - dldir-v1-
       - run:
           name: Build the qemux86-64 image
@@ -77,11 +77,11 @@ jobs:
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
             bitbake pedalpi-dev-platform
       - save_cache:
-              key: dldir-v1-{{ .Branch }}-qemux86-{{ .Revision }}
+              key: dldir-v1-qemux86-{{ .Branch }}{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-{{ .Branch }}-qemux86-{{ .Revision }}
+              key: sstate-v1-qemux86-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -102,15 +102,15 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
-                  - sstate-v1-{{ .Branch }}-raspberrypi2-
-                  - sstate-v1-{{ .Branch }}-
+                  - sstate-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v1-raspberrypi2-{{ .Branch }}-
+                  - sstate-v1-raspberrypi2-
                   - sstate-v1-
       - restore_cache:
               keys:
-                  - dldir-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
-                  - dldir-v1-{{ .Branch }}-raspberrypi2-
-                  - dldir-v1-{{ .Branch }}-
+                  - dldir-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v1-raspberrypi2-{{ .Branch }}-
+                  - dldir-v1-raspberrypi2-
                   - dldir-v1-
       - run:
           name: Build the raspberrypi2 image
@@ -122,11 +122,11 @@ jobs:
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
             bitbake pedalpi-dev-platform
       - save_cache:
-              key: dldir-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
+              key: dldir-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-{{ .Branch }}-raspberrypi2-{{ .Revision }}
+              key: sstate-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -147,15 +147,15 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
-                  - sstate-v1-{{ .Branch }}-raspberrypi3-
-                  - sstate-v1-{{ .Branch }}-
+                  - sstate-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v1-raspberrypi3-{{ .Branch }}-
+                  - sstate-v1-raspberrypi3-{{ .Branch }}-
                   - sstate-v1-
       - restore_cache:
               keys:
-                  - dldir-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
-                  - dldir-v1-{{ .Branch }}-raspberrypi3-
-                  - dldir-v1-{{ .Branch }}-
+                  - dldir-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v1-raspberrypi3-{{ .Branch }}-
+                  - dldir-v1-raspberrypi3-{{ .Branch }}-
                   - dldir-v1-
       - run:
           name: Build the raspberrypi3 image
@@ -167,11 +167,11 @@ jobs:
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
             bitbake pedalpi-dev-platform
       - save_cache:
-              key: dldir-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
+              key: dldir-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-{{ .Branch }}-raspberrypi3-{{ .Revision }}
+              key: sstate-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -252,4 +252,3 @@ workflows:
           filters:
             branches:
               only: master
-
