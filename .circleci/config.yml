@@ -219,6 +219,19 @@ jobs:
 
 workflows:
   version: 2
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build_raspberrypi2
+      - build_raspberrypi3
+      - build_nanopi
+      - build_qemux86
   build-and-deploy:
     jobs:
       - build_raspberrypi2
