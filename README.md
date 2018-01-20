@@ -46,7 +46,7 @@ $ bitbake pedalpi-dev-platform
 $ sudo dd if=tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air.sunxi-sdimg of=/dev/sdXXX bs=4096  # XXX is your SD card
 ```
 Plug the SD card in your NanoPi Neo Air and power on the device.
-The `pedalpi` WiFi network is open (no password) and allow you to access the MOD-UI user interface [see screenshot](http://blog.moddevices.com/wp-content/uploads/2017/07/screen-shot-2017-06-29-at-18.04.25-fullpage.png)  at address [http://10.10.10.1](http://10.10.10.1).
+The `pedalpi` WiFi network is open (no password) and allow you to access the MOD-UI user interface [see screenshot](mod-ui-screenshot.png)  at address [http://10.10.10.1](http://10.10.10.1).
 
 ## Flash and run PedalPI on RaspberryPI 2 on SD card
 Type these commands:
@@ -58,7 +58,7 @@ $ bitbake pedalpi-dev-platform
 $ sudo dd if=tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-raspberrypi2.sdimg of=/dev/sdXXX bs=4096  # XXX is your SD card
 ```
 Plug the SD card in your RaspberryPI 2 and power on the device.
-The Raspberry PI 2 connects automatically on ethernet network with DHCP. You may connect to the MOD-UI user interface [see screenshot](http://blog.moddevices.com/wp-content/uploads/2017/07/screen-shot-2017-06-29-at-18.04.25-fullpage.png)  at address [http://pedalpi](http://pedalpi) or the dynamically allocated IP address.
+The Raspberry PI 2 connects automatically on ethernet network with DHCP. You may connect to the MOD-UI user interface [see screenshot](mod-ui-screenshot.png) at address [http://pedalpi](http://pedalpi) or the dynamically allocated IP address.
 
 ## Flash and run PedalPI on RaspberryPI 3 on SD card
 
@@ -74,4 +74,4 @@ $ source init.sh qemux86-64
 $ bitbake pedalpi-dev-platform
 $ runqemu qemux86-64 serial audio
 ```
-A virtual IP address is allocated to the QEMU session, you can connect to the port 80 at this address in your browser to access to the MOD-UI user interface [see screenshot](http://blog.moddevices.com/wp-content/uploads/2017/07/screen-shot-2017-06-29-at-18.04.25-fullpage.png).
+A virtual IP address is allocated to the QEMU session, you can connect to the port 80 at this address in your browser to access to the MOD-UI user interface [see screenshot](mod-ui-screenshot.png).
