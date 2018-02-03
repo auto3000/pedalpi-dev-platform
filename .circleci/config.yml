@@ -216,6 +216,18 @@ jobs:
             command: |
               filename=$(ls images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg)
               bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+  deploy_qemux86:
+    docker:
+        - image: making/alpine-java-bash-git
+    steps:
+        - checkout
+        - attach_workspace:
+            at: images
+        - run:
+            name: Deploy the qemux86 root filesystem
+            command: |
+              filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
+              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
 
 workflows:
   version: 2
