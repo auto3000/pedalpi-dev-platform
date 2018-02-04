@@ -1,8 +1,47 @@
 [![CircleCI](https://circleci.com/gh/auto3000/pedalpi-dev-platform/tree/master.svg?style=shield&circle-token=7deebe538e0b303c63efefdd48d0318eb8268e8e)](https://circleci.com/gh/auto3000/pedalpi-dev-platform/tree/master)
 
-This project is a limitless pedalboard for guitarists based on near zero-cost hardware like Raspberry PI 2/3, NanoPI Neo Air.
+This project is a limitless pedalboard for guitarists based on cheap single board computers like Raspberry PI 2/3, NanoPI Neo Air or simply your high-end computer running Linux.
 
-# Quick installation
+# How to run PedalPII
+## Option 1: installation on x86-64 Linux machines (Ubuntu, Fedora, ...)
+
+Prerequisites:
+a. Install Docker software from your Linux distribution (example on Ubuntu, Debian: 'sudo apt-get install docker.io' on the console)
+b. Close all sound applications on your machines to free-up the sound card.
+c. User would be in UNIX groups 'audio' and 'docker'.
+
+1. Download the latest release from page [Releases](https://github.com/auto3000/pedalpi-dev-platform/releases)
+2. Configure Docker with pedalpii image:
+```Shell
+$ docker import pedalpi-dev-platform-qemux86-64-xxxxxxxxxxxxxx.rootfs.tar.bz2 pedalpii
+```
+3. Run PedalPII from command line:
+```Shell
+$ docker docker run --device /dev/snd -v /dev/log:/dev/log -p 80:80 --rm -it pedalpii /init-pedalpii.sh
+```
+4. The graphical user interface is accessible with a browser at http://localhost:80 [see screenshot](mod-ui-screenshot.png).
+5. Plug your guitar to 'Line' audio connector of the Linux machine.
+6. Optionally, compose new effects from WEB interface and launch your browser to http://localhost
+
+Remarks:
+ - On the console interface, type 'next' or 'previous' to switch between predetermined pedal effects. CTRL-C is quitting the PedalPII software.
+ - Your laptop or Linux machine is (probably) not configured to run in 'real-time', you may hear unwanted noise. You shall set up properly your environment to minimize or prefer the single board computer.
+ - ALSA is the default for PedalPII, since ALSA is the standard in Linux distributions, this should work for most people. The variable JACKD\_OPTIONS can be used to specify another sound layer [see jackd documentation](https://linux.die.net/man/1/jackd). For info, the default JACKD\_OPTIONS is defined as below:
+```Shell
+docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -dhw:0,0 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 --rm -it  pedalpii /init-pedalpii.sh
+```
+ - If you need to specify two differents audio cards for guitar capture and audio output, you can override JACKD\_OPTIONS as below with parameters -C/-P respectively for capture/playback. In this example, a Ubisoft Rocksmith USB cable microphone is plugged for guitar capture, and internal audio card of the laptop is used for headphones.
+```Shell
+$ cat /proc/asound/cards
+ 0 [PCH            ]: HDA-Intel - HDA Intel PCH
+                      HDA Intel PCH at 0x94320000 irq 322
+ 1 [Adapter        ]: USB-Audio - Rocksmith USB Guitar Adapter
+                      Hercules Rocksmith USB Guitar Adapter at usb-0000:00:14.0-2, full speed
+
+$ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 --rm -it  pedalpii /init-pedalpii.sh
+```
+
+## Option 2: installation on single board computers (ex: Raspberry PI 2, 3 or NanoPI Neo Air)
 
 1. Build a pedalpi pedalboard from materials
 2. Flash a sdcard with one release downloaded from page [Releases](https://github.com/auto3000/pedalpi-dev-platform/releases)
