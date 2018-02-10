@@ -277,3 +277,12 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy_qemux86:
+          requires:
+              - build_nanopi
+              - build_raspberrypi2
+              - build_raspberrypi3
+              - build_qemux86
+          filters:
+            branches:
+              only: master
