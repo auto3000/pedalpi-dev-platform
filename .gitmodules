@@ -22,3 +22,6 @@
 [submodule "meta-nanopi-neo-air"]
 	path = meta-nanopi-neo-air
 	url = https://github.com/auto3000/meta-nanopi-neo-air
+[submodule "meta-qt5"]
+	path = meta-qt5
+	url = https://github.com/meta-qt5/meta-qt5
