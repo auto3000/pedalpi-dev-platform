@@ -21,14 +21,14 @@ $ docker docker run --device /dev/snd -v /dev/log:/dev/log -p 80:80 --rm -it ped
 ```
 4. The graphical user interface is accessible with a browser at http://localhost:80 [see screenshot](mod-ui-screenshot.png).
 5. Plug your guitar to 'Line' audio connector of the Linux machine.
-6. Optionally, compose new effects from WEB interface and launch your browser to http://localhost
+6. Optionally, compose new pedalboards from WEB interface and launch your browser to http://localhost:80 or access http://localhost:9000 to set up new pedals effects.
 
 Remarks:
  - On the console interface, type 'next' or 'previous' to switch between predetermined pedal effects. CTRL-C is quitting the PedalPII software.
  - Your laptop or Linux machine is (probably) not configured to run in 'real-time', you may hear unwanted noise. You shall set up properly your environment to minimize or prefer the single board computer.
  - ALSA is the default for PedalPII, since ALSA is the standard in Linux distributions, this should work for most people. The variable JACKD\_OPTIONS can be used to specify another sound layer [see jackd documentation](https://linux.die.net/man/1/jackd). For info, the default JACKD\_OPTIONS is defined as below:
 ```Shell
-docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -dhw:0,0 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 --rm -it  pedalpii /init-pedalpii.sh
+docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -dhw:0,0 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
 ```
  - If you need to specify two differents audio cards for guitar capture and audio output, you can override JACKD\_OPTIONS as below with parameters -C/-P respectively for capture/playback. In this example, a Ubisoft Rocksmith USB cable microphone is plugged for guitar capture, and internal audio card of the laptop is used for headphones.
 ```Shell
@@ -38,7 +38,7 @@ $ cat /proc/asound/cards
  1 [Adapter        ]: USB-Audio - Rocksmith USB Guitar Adapter
                       Hercules Rocksmith USB Guitar Adapter at usb-0000:00:14.0-2, full speed
 
-$ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 --rm -it  pedalpii /init-pedalpii.sh
+$ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
 ```
 
 ## Option 2: installation on single board computers (ex: Raspberry PI 2, 3 or NanoPI Neo Air)
