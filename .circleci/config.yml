@@ -30,7 +30,7 @@ jobs:
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            bitbake pedalpi-dev-platform
+            timeout -k 4600 3600 bitbake pedalpi-dev-platform || echo build is not finished yet
       - save_cache:
               key: dldir-v1-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -75,7 +75,7 @@ jobs:
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            bitbake pedalpi-dev-platform
+            timeout -k 4600 3600 bitbake pedalpi-dev-platform || echo build is not finished yet
       - save_cache:
               key: dldir-v1-qemux86-{{ .Branch }}{{ .Revision }}
               paths:
@@ -120,7 +120,7 @@ jobs:
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            bitbake pedalpi-dev-platform
+            timeout -k 4600 3600 bitbake pedalpi-dev-platform || echo build is not finished yet
       - save_cache:
               key: dldir-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -165,7 +165,7 @@ jobs:
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            bitbake pedalpi-dev-platform
+            timeout -k 4600 3600 bitbake pedalpi-dev-platform || echo build is not finished yet
       - save_cache:
               key: dldir-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
