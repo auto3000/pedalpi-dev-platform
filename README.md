@@ -8,7 +8,7 @@ This project is a limitless pedalboard for guitarists based on cheap single boar
 Prerequisites:
 a. Install Docker software from your Linux distribution (example on Ubuntu, Debian: 'sudo apt-get install docker.io' on the console)
 b. Close all sound applications on your machines to free-up the sound card.
-c. User would be in UNIX groups 'audio' and 'docker'.
+c. User would be in UNIX groups 'audio' and 'docker' with 'sudo adduser
 
 1. Download the latest release from page [Releases](https://github.com/auto3000/pedalpi-dev-platform/releases)
 2. Configure Docker with pedalpii image:
@@ -25,7 +25,7 @@ $ docker docker run --device /dev/snd -v /dev/log:/dev/log -p 80:80 --rm -it ped
 
 Remarks:
  - On the console interface, type 'next' or 'previous' to switch between predetermined pedal effects. CTRL-C is quitting the PedalPII software.
- - Your laptop or Linux machine is (probably) not configured to run in 'real-time', you may hear unwanted noise. You shall set up properly your environment to minimize or prefer the single board computer.
+ - Your laptop or Linux machine is (probably) not configured to run in 'real-time', you may hear audio glitches. You shall set up properly your environment to minimize or prefer the single board computer, [see real-time audio recommendations](https://wiki.archlinux.org/index.php/Professional_audio).
  - ALSA is the default for PedalPII, since ALSA is the standard in Linux distributions, this should work for most people. The variable JACKD\_OPTIONS can be used to specify another sound layer [see jackd documentation](https://linux.die.net/man/1/jackd). For info, the default JACKD\_OPTIONS is defined as below:
 ```Shell
 docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -dhw:0,0 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
