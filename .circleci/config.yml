@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build_nanopi:
+  build_nanopi: &build_nanopi
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -24,13 +24,17 @@ jobs:
                   - dldir-v1-
       - run:
           name: Build the nanopi-neo-air image
-          no_output_timeout: 30m
+          no_output_timeout: 90m
           command: |
             source init.sh nanopi-neo-air
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            bitbake pedalpi-dev-platform
+            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
+                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
+            else
+                bitbake pedalpi-dev-platform | cat -
+            fi
       - save_cache:
               key: dldir-v1-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -45,7 +49,7 @@ jobs:
           root: pedalpi-src-build/tmp/deploy/images/
           paths:
               - nanopi-neo-air
-  build_qemux86:
+  build_qemux86: &build_qemux86
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -69,13 +73,17 @@ jobs:
                   - dldir-v1-
       - run:
           name: Build the qemux86-64 image
-          no_output_timeout: 30m
+          no_output_timeout: 90m
           command: |
             source init.sh qemux86-64
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            bitbake pedalpi-dev-platform
+            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
+                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
+            else
+                bitbake pedalpi-dev-platform | cat -
+            fi
       - save_cache:
               key: dldir-v1-qemux86-{{ .Branch }}{{ .Revision }}
               paths:
@@ -90,7 +98,7 @@ jobs:
           root: pedalpi-src-build/tmp/deploy/images/
           paths:
               - qemux86-64
-  build_raspberrypi2:
+  build_raspberrypi2: &build_raspberrypi2
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -114,13 +122,17 @@ jobs:
                   - dldir-v1-
       - run:
           name: Build the raspberrypi2 image
-          no_output_timeout: 30m
+          no_output_timeout: 90m
           command: |
             source init.sh raspberrypi2
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            bitbake pedalpi-dev-platform
+            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
+                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
+            else
+                bitbake pedalpi-dev-platform | cat -
+            fi
       - save_cache:
               key: dldir-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -135,7 +147,7 @@ jobs:
           root: pedalpi-src-build/tmp/deploy/images/
           paths:
               - raspberrypi2
-  build_raspberrypi3:
+  build_raspberrypi3: &build_raspberrypi3
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -159,13 +171,17 @@ jobs:
                   - dldir-v1-
       - run:
           name: Build the raspberrypi3 image
-          no_output_timeout: 30m
+          no_output_timeout: 90m
           command: |
             source init.sh raspberrypi3
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            bitbake pedalpi-dev-platform
+            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
+                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
+            else
+                bitbake pedalpi-dev-platform | cat -
+            fi
       - save_cache:
               key: dldir-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -229,6 +245,30 @@ jobs:
               filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
               bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
 
+  build_nanopi_step1:
+      <<: *build_nanopi
+
+  build_nanopi:
+      <<: *build_nanopi
+
+  build_qemux86_step1:
+      <<: *build_qemux86
+
+  build_qemux86:
+      <<: *build_qemux86
+
+  build_raspberrypi2_step1:
+      <<: *build_raspberrypi2
+
+  build_raspberrypi2:
+      <<: *build_raspberrypi2
+
+  build_raspberrypi3_step1:
+      <<: *build_raspberrypi3
+
+  build_raspberrypi3:
+      <<: *build_raspberrypi3
+
 workflows:
   version: 2
   weekly:
@@ -240,16 +280,40 @@ workflows:
               only:
                 - master
     jobs:
-      - build_raspberrypi2
-      - build_raspberrypi3
-      - build_nanopi
-      - build_qemux86
+      - build_raspberrypi2_step1
+      - build_raspberrypi3_step1
+      - build_nanopi_step1
+      - build_qemux86_step1
+      - build_raspberrypi2:
+          requires:
+              - build_raspberrypi2_step1
+      - build_raspberrypi3:
+          requires:
+              - build_raspberrypi3_step1
+      - build_nanopi:
+          requires:
+              - build_nanopi_step1
+      - build_qemux86:
+          requires:
+              - build_qemux86_step1
   build-and-deploy:
     jobs:
-      - build_raspberrypi2
-      - build_raspberrypi3
-      - build_nanopi
-      - build_qemux86
+      - build_raspberrypi2_step1
+      - build_raspberrypi3_step1
+      - build_nanopi_step1
+      - build_qemux86_step1
+      - build_raspberrypi2:
+          requires:
+              - build_raspberrypi2_step1
+      - build_raspberrypi3:
+          requires:
+              - build_raspberrypi3_step1
+      - build_nanopi:
+          requires:
+              - build_nanopi_step1
+      - build_qemux86:
+          requires:
+              - build_qemux86_step1
       - deploy_raspberrypi2:
           requires:
               - build_nanopi

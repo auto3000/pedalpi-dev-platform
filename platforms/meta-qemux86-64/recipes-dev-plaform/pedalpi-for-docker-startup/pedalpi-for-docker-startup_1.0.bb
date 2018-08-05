@@ -7,6 +7,7 @@ S = "${WORKDIR}"
 
 DEPENDS = " mod-ui \
 			mod-host \
+			mod-sdk \
 			pedalpii "
 
 
