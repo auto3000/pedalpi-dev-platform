@@ -13,11 +13,6 @@ $ sudo dd if=pedalpi-dev-platform-XXX-sdimg of=/dev/YYY bs=4096  # XXX is your h
 3. Plug the SD card and power on the pedalboard, you can already select from a large list of predefined pedalboards
 4. Optionally, compose new effects from WEB interface. You must plug ethernet cable on the device or join 'pedalpi' WiFi network. Then launch your browser to http://pedalpi
 
-# pedalpi development platform
-pedalpi development platform integrates pedalpi software components developed into a release that can be downloaded and run on popular hardware development boards.
-
-Please see the README in [meta-pedalpi](https://github.com/auto3000/meta-pedalpi/) and [PedalPI v2](https://github.com/auto3000/pedalpii) for further information.
-
 ## Option 2: installation on x86-64 Linux machines (Ubuntu, Fedora, ...)
 
 Prerequisites:
@@ -55,6 +50,11 @@ $ cat /proc/asound/cards
 
 $ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
 ```
+
+# pedalpi development platform
+pedalpi development platform integrates pedalpi software components developed into a release that can be downloaded and run on popular hardware development boards.
+
+Please see the README in [meta-pedalpi](https://github.com/auto3000/meta-pedalpi/) and [PedalPI v2](https://github.com/auto3000/pedalpii) for further information.
 
 ## pedalpi-dev-platform.git usage
 This project uses submodules to pull in layer dependencies. It is advised to avoid using the --recursive option for the initial clone. 'master' is the default branch. Previous release 'maintenance' branches are also available. Note certain tags may require a different set of usage instructions, please refer to the relative README.
