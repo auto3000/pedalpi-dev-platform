@@ -2,6 +2,13 @@
 
 This project is a limitless pedalboard for guitarists based on cheap single board computers like Raspberry PI 2/3, NanoPI Neo Air or simply your high-end computer running Linux.
 
+### Table of Contents
+1. [How to run PedalPII](#how-to-run-pedalpii)
+2. [Supported hardware](#supported-hardware)
+3. [Alternatives to PedalPII](#alternatives-to-pedalpii)
+4. [How to build from scratch](#how-to-build-from-scratch)
+
+
 # How to run PedalPII
 ## Option 1: installation on single board computers (ex: Raspberry PI 2, 3 or NanoPI Neo Air)
 
@@ -51,7 +58,33 @@ $ cat /proc/asound/cards
 $ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
 ```
 
-# pedalpi development platform
+
+# Supported hardware
+
+The PedalPII comes into three flavors: (1) Raspberry PI 2 or 3, (2) NanoPI Neo Air, and (3) Docker image for X86-64.
+
+1. The total cost for Raspberry PI flavor is targeted under 150\$. The main costs are the sound card (Prodipe Studio 22 USB is 80\$, Pisound audio board is 99\$), the Raspberry Pi 2/3 (40\$), and the Hammond 1590DD aluminium box (20\$). Remaining furnitures are under 10\$: 2GB SDcard, one 1602 LCD display, one MF-A04 bakelite knob, two 1/4 mono jack plug audio connector, two 1/4 jack socket connector female panel mount, and one 3PDT switch true bypass.
+2. The total cost for this competitor is targeted under 60\$. The main cost is the NanoPi Neo Air (30\$) that includes a onboard eMMC storage and audio sound codec, and the Hammond 1590DD aluminium box (20\$). Remaining furnitures are under 10\$: one 1602 LCD display, one MF-A04 bakelite knob, two 1/4 mono jack plug audio connector, and one 3PDT switch true bypass.
+3. The total cost is 0\$. You are already using a laptop with onboard audio sound cards. You may have to use jack adapters to plug your laptop to your guitar/amps, but you already got that, didn't you ?
+
+PedalPII is multiplatform thanks to the Linux Yocto software architecture, and retarget to a new hardware platform must be easy. You can find a non-exhaustive (!) [list of +5000 supported hardware](http://layers.openembedded.org/layerindex/branch/master/machines/?q=&search=1). You may port this software to any variant of Orange PI, C.H.I.P., IMX8MQ, Tegra X1 or Odroid-XU4. To reach sufficient performance for any installed pedal effect, the minimal hardware requirement would be a dual core at 1GHz, 128MB of RAM and 1GB of flash. You may also want to remove some included development tools and shrink down to 400MB of flash.
+
+
+# Alternatives to PedalPII
+
+I think PedalPII is one of the best pedal effect distribution, but of course I'm biased. There are many other good alternatives including:
+1. [MOD Duo](https://www.moddevices.com/), is a good but a little pricey 700\$ pedalboard. This is not really a DIY pedalboard but one can add new effects and interfaces to this device.
+2. [MOD DEP](https://blokas.io/), enables the 99\$ [Pisound audio board](https://blokas.io/store) for a 40\$ Raspberry PI 3. This pedalboard is based on MOD Duo software running over Armbian.
+3. [POP](https://popularelectronics.technicacuriosa.com/2017/03/07/pop-the-programmable-open-pedal/) runs MOD Duo software on the the 9\$ C.H.I.P. board from Next Thing Co.
+4. [Pedal-Pi](https://www.electrosmash.com/pedal-pi) is a lo-fi programmable guitar pedal that works with the 10\$ Raspberry Pi Zero Board and a custom MCP6002, MCP3202 and PWM-based audio board.
+5. [PedalPI](https://github.com/PedalPi) is based on 40\$ Raspberry PI 3, a 3\$ USB audio card and the 10\$ Raspberry Pi Zero for physical buttons. This pedalboard is based on a combination lower software layers of MOD Duo for pedal effects and an enhanced user interface.
+6. [Guitar Extended](https://guitarextended.wordpress.com/2013/01/31/raspberry-pi-multi-effects-overview-of-the-setup/) is based on 30\$ Raspberry PI, an Arduino Uno for physical buttons, 100\$ E-MU 0404 audio card, and [Pure Data](http://puredata.info/) for software pedal effects.
+7. [Arnout's pedal](http://arre234.blogspot.com/2018/02/linux-portable-wifi-guitar-amp-on.html) is based on 7\$ Orange PI Zero, a 3\$ USB audio card. The software is relying on [Guitarix](http://guitarix.org/).
+8. I shall mention my undisclosed prior project 'PedalPI', based on a modified [Rakarrack](http://rakarrack.sourceforge.net/) software suite running 40\$ Rasperry PI 2 and 80\$ USB audio card [see history](https://github.com/auto3000/pedalpii)
+
+Please let me know if this list is missing your project. Note: there are numerous projects related to DIY synth or DIY amps: the software may be the same as DIY guitar pedalboards.
+
+# How to build from scratch
 pedalpi development platform integrates pedalpi software components developed into a release that can be downloaded and run on popular hardware development boards.
 
 Please see the README in [meta-pedalpi](https://github.com/auto3000/meta-pedalpi/) and [PedalPI v2](https://github.com/auto3000/pedalpii) for further information.
