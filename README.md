@@ -81,8 +81,9 @@ I think PedalPII is one of the best pedal effect distribution, but of course I'm
 6. [Guitar Extended](https://guitarextended.wordpress.com/2013/01/31/raspberry-pi-multi-effects-overview-of-the-setup/) is based on 30\$ Raspberry PI, an Arduino Uno for physical buttons, 100\$ E-MU 0404 audio card, and [Pure Data](http://puredata.info/) for software pedal effects.
 7. [Arnout's pedal](http://arre234.blogspot.com/2018/02/linux-portable-wifi-guitar-amp-on.html) is based on 7\$ Orange PI Zero, a 3\$ USB audio card. The software is relying on [Guitarix](http://guitarix.org/).
 8. I shall mention my undisclosed prior project 'PedalPI', based on a modified [Rakarrack](http://rakarrack.sourceforge.net/) software suite running 40\$ Rasperry PI 2 and 80\$ USB audio card [see history](https://github.com/auto3000/pedalpii)
+9. [AmpBrownie](https://github.com/adamhub/ampbrownie) sets up Guitarix on a Raspberry PI 1 based on Raspbian, in association with a 40$ USB sound card and 60$ keyboard.
 
-Please let me know if this list is missing your project. Note: there are numerous projects related to DIY synth or DIY amps: the software may be the same as DIY guitar pedalboards.
+Please let me know if this list is missing your project. Note: there are numerous projects related to DIY synth or DIY amps.
 
 # How to build from scratch
 pedalpi development platform integrates pedalpi software components developed into a release that can be downloaded and run on popular hardware development boards.
