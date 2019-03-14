@@ -30,6 +30,7 @@ jobs:
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            mkdir -p tmp/deploy/images/
             if [[ $CIRCLE_JOB =~ .*step.* ]]; then
                 timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
             else
@@ -79,6 +80,7 @@ jobs:
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            mkdir -p tmp/deploy/images/
             if [[ $CIRCLE_JOB =~ .*step.* ]]; then
                 timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
             else
@@ -128,6 +130,7 @@ jobs:
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            mkdir -p tmp/deploy/images/
             if [[ $CIRCLE_JOB =~ .*step.* ]]; then
                 timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
             else
@@ -177,6 +180,7 @@ jobs:
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            mkdir -p tmp/deploy/images/
             if [[ $CIRCLE_JOB =~ .*step.* ]]; then
                 timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
             else
