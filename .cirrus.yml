@@ -1,0 +1,21 @@
+container:
+  image: crops/yocto:ubuntu-14.04-builder
+
+test_task:
+  env:
+    LC_ALL: en_US.UTF-8
+    LANG: en_US.UTF-8
+    BB_NUMBER_THREADS: 2
+    PARALLEL_MAKE: -j 2
+  script:
+    - source init.sh raspberrypi3
+    - echo 'SCONF_VERSION = "1"'  > conf/site.conf
+    - echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+    - echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+    - mkdir -p tmp/deploy/images/
+    - if [[ $CIRCLE_JOB =~ .*step.* ]]; then
+    -   timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
+    - else
+    -   bitbake pedalpi-dev-platform | cat -
+    - fi
+
