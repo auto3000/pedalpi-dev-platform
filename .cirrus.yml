@@ -11,6 +11,7 @@ container:
 
 
 .build_template: &build_template
+  timeout_in: 120m
   script:
     - source init.sh $TARGET
     - echo 'SCONF_VERSION = "1"'  > conf/site.conf
@@ -47,3 +48,22 @@ build_nanopi-neo-air_task:
   env:
     <<: *build_env_template
     TARGET: nanopi-neo-air
+
+
+publish_task:
+  container:
+    image: making/alpine-java-bash-git
+  env:
+    GITHUB_TOKEN_FOR_CIRRUSCI: ENCRYPTED[b616f030c6538608b10312b0b1959e48e7c635c360d18888e5d82ebf19e1bbf410e035d699b5a686f907afe85712aa98]
+  depends_on: 
+    - build_raspberrypi3 
+    - build_raspberrypi2
+    - build_qemux86-64
+    - build_nanopi-neo-air
+#  only_if: $BRANCH == "master"
+  publish_script: |
+    filename=$(ls images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
+    bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+
+
+
