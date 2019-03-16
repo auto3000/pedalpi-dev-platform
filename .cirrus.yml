@@ -1,11 +1,13 @@
 container:
   image: crops/yocto:ubuntu-14.04-builder
+  cpu: 8
+  memory: 24
 
 test_step_task:
   env:
     LC_ALL: en_US.UTF-8
     LANG: en_US.UTF-8
-    BB_NUMBER_THREADS: 2
+    BB_NUMBER_THREADS: 8
     PARALLEL_MAKE: -j 2
   script:
     - source init.sh raspberrypi3
