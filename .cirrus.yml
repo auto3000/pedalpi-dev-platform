@@ -14,7 +14,7 @@ test_task:
     - echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
     - mkdir -p tmp/deploy/images/
     - if [[ $CIRCLE_JOB =~ .*step.* ]]; then
-    -   timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
+    -   timeout -k 72 56 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
     - else
     -   bitbake pedalpi-dev-platform | cat -
     - fi
