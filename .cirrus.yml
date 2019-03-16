@@ -3,12 +3,12 @@ container:
   cpu: 8
   memory: 24
 
-test_step_task:
+test_task:
   env:
     LC_ALL: en_US.UTF-8
     LANG: en_US.UTF-8
     BB_NUMBER_THREADS: 8
-    PARALLEL_MAKE: -j 2
+    PARALLEL_MAKE: -j 4
   script:
     - source init.sh raspberrypi3
     - echo 'SCONF_VERSION = "1"'  > conf/site.conf
