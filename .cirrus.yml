@@ -1,7 +1,7 @@
 container:
   image: crops/yocto:ubuntu-14.04-builder
 
-test_task:
+test_step_task:
   env:
     LC_ALL: en_US.UTF-8
     LANG: en_US.UTF-8
@@ -13,7 +13,7 @@ test_task:
     - echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
     - echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
     - mkdir -p tmp/deploy/images/
-    - if [[ $CIRCLE_JOB =~ .*step.* ]]; then
+    - if [[ $CIRRUS_TASK_NAME =~ .*step.* ]]; then
     -   timeout -k 72 56 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
     - else
     -   bitbake pedalpi-dev-platform | cat -
