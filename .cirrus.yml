@@ -3,6 +3,13 @@ container:
   cpu: 8
   memory: 24
 
+.build_env_template: &build_env_template
+  LC_ALL: en_US.UTF-8
+  LANG: en_US.UTF-8
+  BB_NUMBER_THREADS: 8
+  PARALLEL_MAKE: -j 4
+
+
 .build_template: &build_template
   script:
     - source init.sh $TARGET
@@ -20,17 +27,23 @@ container:
 build_raspberrypi3_task:
   <<: *build_template
   env:
-    LC_ALL: en_US.UTF-8
-    LANG: en_US.UTF-8
-    BB_NUMBER_THREADS: 8
-    PARALLEL_MAKE: -j 4
+    <<: *build_env_template
     TARGET: raspberrypi3
+
+build_raspberrypi2_task:
+  <<: *build_template
+  env:
+    <<: *build_env_template
+    TARGET: raspberrypi2
+
+build_qemux86-64_task:
+  <<: *build_template
+  env:
+    <<: *build_env_template
+    TARGET: qemux86-64
 
 build_nanopi-neo-air_task:
   <<: *build_template
   env:
-    LC_ALL: en_US.UTF-8
-    LANG: en_US.UTF-8
-    BB_NUMBER_THREADS: 8
-    PARALLEL_MAKE: -j 4
+    <<: *build_env_template
     TARGET: nanopi-neo-air
