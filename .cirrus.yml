@@ -13,17 +13,9 @@ container:
 .build_template: &build_template
   timeout_in: 120m
   script:
-    - source init.sh $TARGET
-    - echo 'SCONF_VERSION = "1"'  > conf/site.conf
-    - echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-    - echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-    - mkdir -p tmp/deploy/images/
-    - if [[ $CIRRUS_TASK_NAME =~ .*step.* ]]; then
-    -   timeout -k 720 560 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
-    - else
-    -   bitbake pedalpi-dev-platform | cat -
-    - fi
-
+    - mkdir -p pedalpi-src-build/images/$TARGET/
+    - touch pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
+    - find
 
 build_raspberrypi3_task:
   <<: *build_template
@@ -62,7 +54,8 @@ publish_task:
     - build_nanopi-neo-air
 #  only_if: $BRANCH == "master"
   publish_script: |
-    filename=$(ls images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
+    find
+    filename=$(ls pedalpi-src-build/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
     bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
 
 
