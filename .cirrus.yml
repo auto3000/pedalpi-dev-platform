@@ -15,7 +15,7 @@ container:
   timeout_in: 120m
   build_script:
     - mkdir -p pedalpi-src-build/images/$TARGET/
-    - touch pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
+    - echo XXX > pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
     - find
     - curl --version
 #  only_if: $BRANCH == "master"
