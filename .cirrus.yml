@@ -10,14 +10,13 @@ container:
   PARALLEL_MAKE: -j 4
   GITHUB_TOKEN_FOR_CIRRUSCI: ENCRYPTED[b616f030c6538608b10312b0b1959e48e7c635c360d18888e5d82ebf19e1bbf410e035d699b5a686f907afe85712aa98]
 
-
 .build_template: &build_template
   timeout_in: 120m
   build_script:
     - mkdir -p pedalpi-src-build/images/$TARGET/
     - echo XXX > pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
-    - cd pedalpi-src-build
   publish_script: |
+    cd pedalpi-src-build/images/$TARGET
     if [ $BRANCH != "master" ]; then
       filename=$(ls $ARTIFACTS)
       bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
@@ -28,26 +27,26 @@ build_raspberrypi3_task:
   env:
     <<: *build_env_template
     TARGET: raspberrypi3
-    ARTIFACTS: 'images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg'
+    ARTIFACTS: 'pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg'
 
 build_raspberrypi2_task:
   <<: *build_template
   env:
     <<: *build_env_template
     TARGET: raspberrypi2
-    ARTIFACTS: 'images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg'
+    ARTIFACTS: 'pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg'
 
 build_qemux86-64_task:
   <<: *build_template
   env:
     <<: *build_env_template
     TARGET: qemux86-64
-    ARTIFACTS: 'images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2'
+    ARTIFACTS: 'pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2'
 
 build_nanopi-neo-air_task:
   <<: *build_template
   env:
     <<: *build_env_template
     TARGET: nanopi-neo-air
-    ARTIFACTS: 'images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg'
+    ARTIFACTS: 'pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg'
 
