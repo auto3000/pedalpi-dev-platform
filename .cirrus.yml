@@ -18,6 +18,7 @@ container:
     - mkdir -p pedalpi-src-build/images/$TARGET/
     - touch pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
     - find
+    - curl --version
 
 build_raspberrypi3_task:
   <<: *build_template
