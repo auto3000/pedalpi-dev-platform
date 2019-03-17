@@ -12,6 +12,8 @@ container:
 
 .build_template: &build_template
   timeout_in: 120m
+  build_cache:
+    folder: pedalpi-src-build/images/
   script:
     - mkdir -p pedalpi-src-build/images/$TARGET/
     - touch pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
