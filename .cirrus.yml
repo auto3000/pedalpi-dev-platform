@@ -15,35 +15,39 @@ container:
   timeout_in: 120m
   build_script:
     - mkdir -p pedalpi-src-build/images/$TARGET/
+    - cd pedalpi-src-build
     - echo XXX > pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
-    - find
-    - curl --version
-#  only_if: $BRANCH == "master"
-  publish_script:
-    - filename=$(ls pedalpi-src-build/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
-    - bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+  publish_script: |
+    if [ $BRANCH == "master" ]; then
+      filename=$(ls $ARTIFACTS)
+      bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+    fi
 
 build_raspberrypi3_task:
   <<: *build_template
   env:
     <<: *build_env_template
     TARGET: raspberrypi3
+    ARTIFACTS: 'images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg'
 
 build_raspberrypi2_task:
   <<: *build_template
   env:
     <<: *build_env_template
     TARGET: raspberrypi2
+    ARTIFACTS: 'images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg'
 
 build_qemux86-64_task:
   <<: *build_template
   env:
     <<: *build_env_template
     TARGET: qemux86-64
+    ARTIFACTS: 'images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2'
 
 build_nanopi-neo-air_task:
   <<: *build_template
   env:
     <<: *build_env_template
     TARGET: nanopi-neo-air
+    ARTIFACTS: 'images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg'
 
