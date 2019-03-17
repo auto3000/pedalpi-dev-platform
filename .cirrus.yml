@@ -8,17 +8,20 @@ container:
   LANG: en_US.UTF-8
   BB_NUMBER_THREADS: 8
   PARALLEL_MAKE: -j 4
+  GITHUB_TOKEN_FOR_CIRRUSCI: ENCRYPTED[b616f030c6538608b10312b0b1959e48e7c635c360d18888e5d82ebf19e1bbf410e035d699b5a686f907afe85712aa98]
 
 
 .build_template: &build_template
   timeout_in: 120m
-  build_cache:
-    folder: pedalpi-src-build/images/
-  script:
+  build_script:
     - mkdir -p pedalpi-src-build/images/$TARGET/
     - touch pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
     - find
     - curl --version
+#  only_if: $BRANCH == "master"
+  publish_script:
+    - filename=$(ls pedalpi-src-build/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
+    - bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
 
 build_raspberrypi3_task:
   <<: *build_template
@@ -43,23 +46,4 @@ build_nanopi-neo-air_task:
   env:
     <<: *build_env_template
     TARGET: nanopi-neo-air
-
-
-publish_task:
-  container:
-    image: making/alpine-java-bash-git
-  env:
-    GITHUB_TOKEN_FOR_CIRRUSCI: ENCRYPTED[b616f030c6538608b10312b0b1959e48e7c635c360d18888e5d82ebf19e1bbf410e035d699b5a686f907afe85712aa98]
-  depends_on: 
-    - build_raspberrypi3 
-    - build_raspberrypi2
-    - build_qemux86-64
-    - build_nanopi-neo-air
-#  only_if: $BRANCH == "master"
-  publish_script: |
-    find
-    filename=$(ls pedalpi-src-build/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
-    bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
-
-
 
