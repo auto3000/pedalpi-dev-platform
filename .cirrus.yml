@@ -1,5 +1,5 @@
 container:
-  image: crops/yocto:ubuntu-14.04-builder
+  image: crops/poky
   cpu: 8
   memory: 24
 
