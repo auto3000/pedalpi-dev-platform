@@ -17,7 +17,7 @@ container:
     - echo XXX > pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
   publish_script: |
     if [ $BRANCH != "master" ]; then
-      filename=$(cd pedalpi-src-build/images/$TARGET ; ls $ARTIFACTS)
+      filename=$(ls pedalpi-src-build/images/$TARGET/$ARTIFACTS)
       bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
     fi
 
