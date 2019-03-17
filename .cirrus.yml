@@ -1,5 +1,5 @@
 container:
-  image: crops/poky
+  dockerfile: Dockerfile
   cpu: 8
   memory: 24
 
