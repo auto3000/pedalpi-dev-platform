@@ -15,8 +15,8 @@ container:
   timeout_in: 120m
   build_script:
     - mkdir -p pedalpi-src-build/images/$TARGET/
-    - cd pedalpi-src-build
     - echo XXX > pedalpi-src-build/images/$TARGET/pedalpi-dev-platform-$TARGET-XXX.rootfs.sunxi-sdimg
+    - cd pedalpi-src-build
   publish_script: |
     if [ $BRANCH == "master" ]; then
       filename=$(ls $ARTIFACTS)
