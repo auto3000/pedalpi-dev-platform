@@ -45,7 +45,9 @@ container:
 
 .publish_template: &publish_template
   timeout_in: 120m
-  <<: *yoctocache_template
+  yocto_cache:
+      folder: pedalpi-src-build
+      fingerprint_script: echo $(git rev-parse HEAD)-$TARGET
   <<: *buildcommand_template
   <<: *publishcommand_template
 
