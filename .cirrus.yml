@@ -17,7 +17,7 @@ container:
         echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
         echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
         if [[ $CIRRUS_TASK_NAME =~ .*step.* ]]; then
-          timeout -k 6000 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
+          timeout -k 600 560 bash -c "bitbake ruby-rdf-native | cat -" || echo build is not finished yet
         else
           bitbake pedalpi-dev-platform | cat -
           test -f pedalpi-src-build/images/$TARGET/$ARTIFACTS
