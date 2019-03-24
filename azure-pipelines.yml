@@ -3,7 +3,7 @@ pool:
 
 resources:
   containers:
-    - container: crops/poky
+    - container: crops_poky
       image: 'crops/poky'
       env:
         LC_ALL: en_US.UTF-8
@@ -11,7 +11,7 @@ resources:
         BB_NUMBER_THREADS: 2
         PARALLEL_MAKE: -j 2
 
-container: crops/poky
+container: crops_poky
 
 steps:
   - script: |
