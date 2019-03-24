@@ -3,15 +3,15 @@ pool:
 
 resources:
   containers:
-    - container: crops/poky:ubuntu-14.04-builder
-      image: 'crops/poky:ubuntu-14.04-builder'
+    - container: crops/yocto:ubuntu-14.04-builder
+      image: 'crops/yocto:ubuntu-14.04-builder'
       env:
         LC_ALL: en_US.UTF-8
         LANG: en_US.UTF-8
         BB_NUMBER_THREADS: 2
         PARALLEL_MAKE: -j 2
 
-container: crops/poky:ubuntu-14.04-builder
+container: crops/yocto:ubuntu-14.04-builder
 
 steps:
   - script: |
