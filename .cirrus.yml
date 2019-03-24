@@ -16,12 +16,16 @@ container:
         echo 'SCONF_VERSION = "1"'  > conf/site.conf
         echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
         echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-        if [[ $CIRRUS_TASK_NAME =~ .*step.* ]]; then
-          timeout -k 600 560 bash -c "bitbake ruby-rdf-native | cat -" || echo build is not finished yet
-        else
-          bitbake pedalpi-dev-platform | cat -
-          test -f pedalpi-src-build/images/$TARGET/$ARTIFACTS
-        fi
+        timeout -k 600 560 bash -c "bitbake ruby-rdf-native | cat -" || echo build is not finished yet
+
+.rebuildcommand_template: &rebuildcommand_template
+    repopulate_script: |
+        source init.sh $TARGET
+        echo 'SCONF_VERSION = "1"'  > conf/site.conf
+        echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+        echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+        bitbake pedalpi-dev-platform | cat -
+        test -f pedalpi-src-build/images/$TARGET/$ARTIFACTS
 
 .publishcommand_template: &publishcommand_template
     publish_script: |
@@ -39,16 +43,7 @@ container:
 .build_step_template: &build_step_template
   timeout_in: 120m
   <<: *yoctocache_template
-  status_script:
-    - echo "Build first step done"
-
-
-.publish_template: &publish_template
-  timeout_in: 120m
-  yocto_cache:
-      folder: pedalpi-src-build
-      fingerprint_script: echo $(git rev-parse HEAD)-$TARGET
-  <<: *buildcommand_template
+  <<: *rebuildcommand_template
   <<: *publishcommand_template
 
 
@@ -66,21 +61,12 @@ container:
     TARGET: raspberrypi2
     ARTIFACTS: 'pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg'
 
-build_step_qemux86-64_task:
+build_qemux86-64_task:
   <<: *build_step_template
   env:
     <<: *build_env_template
     TARGET: qemux86-64
     ARTIFACTS: 'pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2'
-
-publish_qemux86-64_task:
-  <<: *publish_template
-  env:
-    <<: *build_env_template
-    TARGET: qemux86-64
-    ARTIFACTS: 'pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2'
-  depends_on:
-    - build_step_qemux86-64
 
 .build_nanopi-neo-air_task:
   <<: *build_step_template
