@@ -1,5 +1,5 @@
 pool:
-  vmImage: ' crops/yocto:ubuntu-14.04-builder'
+  vmImage: 'crops/yocto:ubuntu-14.04-builder'
 
 steps:
   - script: |
