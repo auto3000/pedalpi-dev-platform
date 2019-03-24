@@ -1,5 +1,8 @@
 pool:
-  vmImage: 'crops/yocto'
+  vmImage: 'ubuntu-16.04'
+
+container: 'crops/yocto'
+
 
 steps:
   - script: |
