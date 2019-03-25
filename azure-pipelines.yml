@@ -9,9 +9,6 @@ resources:
       env:
         LC_ALL: en_US.UTF-8
         LANG: en_US.UTF-8
-        BB_NUMBER_THREADS: 2
-        PARALLEL_MAKE: -j 2
-
 
 container: crops_poky
 
