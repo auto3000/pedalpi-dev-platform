@@ -1,4 +1,5 @@
 pool:
+  timeoutInMinutes: 1000
   vmImage: 'ubuntu-16.04'
 
 resources:
