@@ -1,5 +1,7 @@
 [![Cirrus Build Status](https://api.cirrus-ci.com/github/auto3000/pedalpi-dev-platform.svg)](https://cirrus-ci.com/github/auto3000/pedalpi-dev-platform)
 
+[![Build Status](https://dev.azure.com/auto3000/pedalpi-dev-platform/_apis/build/status/auto3000.pedalpi-dev-platform?branchName=master)](https://dev.azure.com/auto3000/pedalpi-dev-platform/_build/latest?definitionId=1&branchName=master)
+
 This project is a limitless pedalboard for guitarists based on cheap single board computers like Raspberry PI 2/3, NanoPI Neo Air or simply your high-end computer running Linux.
 
 ### Table of Contents
