@@ -1,20 +1,19 @@
-pool:
-  vmImage: 'ubuntu-16.04'
 
-resources:
-  containers:
-    - container: crops_poky
-      image: 'auto3000/poky'
-      env:
-        LC_ALL: en_US.UTF-8
-        LANG: en_US.UTF-8
-
-container: crops_poky
 
 jobs:
 - job: A
   displayName: 'Run a multi-line script'
   timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-16.04'
+  resources:
+    containers:
+    - container: crops_poky
+      image: 'auto3000/poky'
+      env:
+        LC_ALL: en_US.UTF-8
+        LANG: en_US.UTF-8
+  container: crops_poky
   steps:
   - script: |
       echo Add other tasks to build, test, and deploy your project.
