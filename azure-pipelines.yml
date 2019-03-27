@@ -8,19 +8,6 @@ resources:
       LANG: en_US.UTF-8
 
 jobs:
-- job: build-nanopi-neo-air
-  displayName: 'Run a multi-line script'
-  timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-16.04'
-  container: crops_poky
-  steps:
-    - script: |
-      source init.sh nanopi-neo-air
-      echo 'SCONF_VERSION = "1"' > conf/site.conf
-      echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-      echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-      bitbake pedalpi-dev-platform
 - job: build-qemux86-64
   displayName: 'Run a multi-line script'
   timeoutInMinutes: 0
