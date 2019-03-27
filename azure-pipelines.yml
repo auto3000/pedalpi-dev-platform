@@ -8,13 +8,7 @@ resources:
       LANG: en_US.UTF-8
 
 
-.yocto_steps: &yocto_steps
-  - script: |
-      source init.sh $TARGET
-      echo 'SCONF_VERSION = "1"' > conf/site.conf
-      echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-      echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-      bitbake pedalpi-dev-platform
+
 
 jobs:
 - job: build-nanopi-neo-air
@@ -26,7 +20,12 @@ jobs:
   env:
     TARGET: nanopi-neo-air
   steps:
-    <<: *yocto_steps
+    - script: |
+      source init.sh $TARGET
+      echo 'SCONF_VERSION = "1"' > conf/site.conf
+      echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+      echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+      bitbake pedalpi-dev-platform
 - job: build-qemux86-64
   displayName: 'Run a multi-line script'
   timeoutInMinutes: 0
@@ -36,7 +35,12 @@ jobs:
   env:
     TARGET: qemux86-64
   steps:
-    <<: *yocto_steps
+    - script: |
+      source init.sh $TARGET
+      echo 'SCONF_VERSION = "1"' > conf/site.conf
+      echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+      echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+      bitbake pedalpi-dev-platform
 - job: build-raspberrypi2
   displayName: 'Run a multi-line script'
   timeoutInMinutes: 0
@@ -46,7 +50,12 @@ jobs:
   env:
     TARGET: raspberrypi2
   steps:
-    <<: *yocto_steps
+    - script: |
+      source init.sh $TARGET
+      echo 'SCONF_VERSION = "1"' > conf/site.conf
+      echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+      echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+      bitbake pedalpi-dev-platform
 - job: build-raspberrypi3
   displayName: 'Run a multi-line script'
   timeoutInMinutes: 0
@@ -56,7 +65,12 @@ jobs:
   env:
     TARGET: raspberrypi3
   steps:
-    <<: *yocto_steps
+    - script: |
+      source init.sh $TARGET
+      echo 'SCONF_VERSION = "1"' > conf/site.conf
+      echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+      echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+      bitbake pedalpi-dev-platform
 - job: B
   dependsOn: build-nanopi-neo-air
   steps:
