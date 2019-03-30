@@ -21,6 +21,11 @@ jobs:
         echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
         echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
         bitbake pedalpi-dev-platform
+        if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
+          echo "Publish release to GitHub"
+          filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
+          bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+        fi
 - job: build_raspberrypi2
   displayName: 'build_raspberrypi2'
   timeoutInMinutes: 0
@@ -34,6 +39,11 @@ jobs:
         echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
         echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
         bitbake pedalpi-dev-platform
+        if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
+          echo "Publish release to GitHub"
+          filename=$(ls images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg)
+          bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+        fi
 - job: build_raspberrypi3
   displayName: 'build_raspberrypi3'
   timeoutInMinutes: 0
@@ -47,4 +57,8 @@ jobs:
         echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
         echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
         bitbake pedalpi-dev-platform
-
+        if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
+          echo "Publish release to GitHub"
+          filename=$(ls images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg)
+          bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+        fi
