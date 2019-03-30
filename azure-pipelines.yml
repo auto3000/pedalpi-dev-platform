@@ -6,6 +6,7 @@ resources:
     env:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
+      GITHUB_TOKEN_FOR_AZUREPIPELINE: $(GitHub.TokenForAzurePipeline)
 
 jobs:
 - job: build_qemux86_64
@@ -16,35 +17,11 @@ jobs:
   container: crops_poky
   steps:
     - script: |
-        source init.sh qemux86-64
-        echo 'SCONF_VERSION = "1"' > conf/site.conf
-        echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-        echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-        bitbake pedalpi-dev-platform
-- job: build_raspberrypi2
-  displayName: 'build_raspberrypi2'
-  timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-16.04'
-  container: crops_poky
-  steps:
-    - script: |
-        source init.sh raspberrypi2
-        echo 'SCONF_VERSION = "1"' > conf/site.conf
-        echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-        echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-        bitbake pedalpi-dev-platform
-- job: build_raspberrypi3
-  displayName: 'build_raspberrypi3'
-  timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-16.04'
-  container: crops_poky
-  steps:
-    - script: |
-        source init.sh raspberrypi2
-        echo 'SCONF_VERSION = "1"' > conf/site.conf
-        echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-        echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-        bitbake pedalpi-dev-platform
-
+        mkdir -p images/qemux86-64/
+        echo XXX > images/qemux86-64/pedalpi-dev-platform-qemux86-64-YYY.rootfs.tar.bz2
+        echo $BUILD_SOURCEBRANCH
+        if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
+          echo "Publish release to GitHub"
+          filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
+          bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_AZUREPIPELINE owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+        fi
