@@ -6,7 +6,7 @@ resources:
     env:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
-      GITHUB_TOKEN_FOR_AZUREPIPELINE: $(GitHub.TokenForAzurePipeline)
+      GITHUB_TOKEN_FOR_AZUREPIPELINE: $(GitHubTokenForAzurePipeline)
 
 jobs:
 - job: build_qemux86_64
