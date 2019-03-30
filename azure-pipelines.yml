@@ -17,11 +17,6 @@ jobs:
   container: crops_poky
   steps:
     - script: |
-        mkdir -p images/qemux86-64/
-        echo XXX > images/qemux86-64/pedalpi-dev-platform-qemux86-64-YYY.rootfs.tar.bz2
-        echo $BUILD_SOURCEBRANCH
-        echo $(GitHubTokenForAzurePipeline)
-        echo $GITHUB_TOKEN_FOR_AZUREPIPELINE
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
           filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
