@@ -10,6 +10,6 @@ CMD /bin/bash
 RUN apt-get update && apt-get install -y \
 curl
 RUN useradd -m -u 1001 vsts_azpcontainer
-RUN groupadd azure_pipelines_sudo
+#RUN groupadd azure_pipelines_sudo
 
 #USER vsts_azpcontainer 
