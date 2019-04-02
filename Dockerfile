@@ -9,7 +9,6 @@ CMD /bin/bash
 # Install prerequisites
 RUN apt-get update && apt-get install -y \
 curl
+RUN useradd -m -u 1001 vsts_azpcontainer
 
-USER yoctouser
-WORKDIR /home/yoctouser
-CMD /bin/bash
+USER vsts_azpcontainer 
