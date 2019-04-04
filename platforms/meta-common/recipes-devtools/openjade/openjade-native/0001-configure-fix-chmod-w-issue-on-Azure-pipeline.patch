@@ -1,0 +1,39 @@
+From 7575f5bf2869fc2d0b6d4719e03a0ab884a24caf Mon Sep 17 00:00:00 2001
+From: auto3000 <auto3000@users.noreply.github.com>
+Date: Thu, 4 Apr 2019 07:25:49 +0200
+Subject: [PATCH] configure: fix chmod -w issue on Azure pipeline
+
+---
+ config/aclocal.m4 | 2 +-
+ configure         | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/config/aclocal.m4 b/config/aclocal.m4
+index 1166122..38e9256 100644
+--- a/config/aclocal.m4
++++ b/config/aclocal.m4
+@@ -1016,7 +1016,7 @@ mkdir out
+ # the output directory.  Thus, making CWD read-only will cause this test
+ # to fail, enabling locking or at least warning the user not to do parallel
+ # builds.
+-chmod -w .
++chmod u-w .
+ save_CFLAGS="$CFLAGS"
+ CFLAGS="$CFLAGS -o out/conftest2.$ac_objext"
+ compiler_c_o=no
+diff --git a/configure b/configure
+index c024af6..5e073f5 100755
+--- a/configure
++++ b/configure
+@@ -7358,7 +7358,7 @@ mkdir out
+ # the output directory.  Thus, making CWD read-only will cause this test
+ # to fail, enabling locking or at least warning the user not to do parallel
+ # builds.
+-chmod -w .
++chmod u-w .
+ save_CFLAGS="$CFLAGS"
+ CFLAGS="$CFLAGS -o out/conftest2.$ac_objext"
+ compiler_c_o=no
+-- 
+2.7.4
+
