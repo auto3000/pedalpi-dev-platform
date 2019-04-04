@@ -1,13 +1,27 @@
-From 7575f5bf2869fc2d0b6d4719e03a0ab884a24caf Mon Sep 17 00:00:00 2001
+From c095d07fc9fc2b7f6d1b4646dd75950ff98d0bdd Mon Sep 17 00:00:00 2001
 From: auto3000 <auto3000@users.noreply.github.com>
 Date: Thu, 4 Apr 2019 07:25:49 +0200
 Subject: [PATCH] configure: fix chmod -w issue on Azure pipeline
 
 ---
+ Makefile.comm.in  | 2 +-
  config/aclocal.m4 | 2 +-
  configure         | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/Makefile.comm.in b/Makefile.comm.in
+index 24d17a4..4c4b7df 100644
+--- a/Makefile.comm.in
++++ b/Makefile.comm.in
+@@ -53,7 +53,7 @@ CXXDEPGENFLAGS=-MM
+ .m4.cxx:
+ 	rm -f $@
+ 	$(PERL) $(srcdir)/../instmac.pl $< >$@
+-	chmod -w $@
++	chmod u-w $@
+ 
+ %.h %.cxx %.rc: %.msg
+ 	$(PERL) -w $(srcdir)/../msggen.pl $(MSGGENFLAGS) $<
 diff --git a/config/aclocal.m4 b/config/aclocal.m4
 index 1166122..38e9256 100644
 --- a/config/aclocal.m4
