@@ -25,7 +25,7 @@ jobs:
         bitbake pedalpi-dev-platform
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
-          find images
+          find
           filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
           bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
@@ -44,7 +44,7 @@ jobs:
         bitbake pedalpi-dev-platform
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
-          find images
+          find
           filename=$(ls images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg)
           bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
@@ -63,7 +63,7 @@ jobs:
         bitbake pedalpi-dev-platform
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
-          find images
+          find
           filename=$(ls images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg)
           bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
@@ -82,7 +82,7 @@ jobs:
         bitbake pedalpi-dev-platform
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
-          find images
+          find
           filename=$(ls images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
           bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
