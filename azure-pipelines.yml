@@ -7,7 +7,7 @@ resources:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
       BB_NUMBER_THREADS: 4
-      PARALLEL_MAKE: -j 8 
+      PARALLEL_MAKE: -j 16 
 
 jobs:
 - job: build_qemux86_64
@@ -61,6 +61,7 @@ jobs:
         bitbake pedalpi-dev-platform
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
+          find /tmp/deploy/images/
           filename=$(ls tmp/deploy/images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg)
           bash ../upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
@@ -79,6 +80,7 @@ jobs:
         bitbake pedalpi-dev-platform
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
+          find /tmp/deploy/images/
           filename=$(ls /tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
           bash ../upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
