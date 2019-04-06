@@ -26,7 +26,7 @@ jobs:
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
           filename=$(ls tmp/deploy/images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
-          bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+          bash ../upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
 - job: build_raspberrypi2
   displayName: 'build_raspberrypi2'
@@ -44,7 +44,7 @@ jobs:
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
           filename=$(ls tmp/deploy/images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg)
-          bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+          bash ../upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
 - job: build_raspberrypi3
   displayName: 'build_raspberrypi3'
@@ -62,7 +62,7 @@ jobs:
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
           filename=$(ls tmp/deploy/images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg)
-          bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+          bash ../upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
 - job: build_nanopi_neo_air
   displayName: 'build_nanopi-neo-air'
@@ -80,5 +80,5 @@ jobs:
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
           filename=$(ls /tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
-          bash ./upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+          bash ../upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
