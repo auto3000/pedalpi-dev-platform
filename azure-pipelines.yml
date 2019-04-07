@@ -81,6 +81,6 @@ jobs:
         if [ $BUILD_SOURCEBRANCH != "refs/heads/master" ]; then
           echo "Publish release to GitHub"
           find tmp/deploy/images/
-          filename=$(ls /tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
+          filename=$(ls tmp/deploy/images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
           bash ../upload-github-release-asset.sh github_api_token=$(GitHubTokenForAzurePipeline) owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
         fi
