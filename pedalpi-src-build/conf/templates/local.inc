@@ -5,6 +5,8 @@ USER_CLASSES ?= "buildstats image-mklibs image-prelink"
 PATCHRESOLVE ?= "noop"
 LICENSE_FLAGS_WHITELIST  += "commercial"
 
+GTKGLIBC_RRECOMMENDS = ""
+
 # Enable fortran
 FORTRAN_forcevariable = ",fortran"
 RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
