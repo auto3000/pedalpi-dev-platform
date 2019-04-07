@@ -11,7 +11,7 @@ GTKGLIBC_RRECOMMENDS = ""
 FORTRAN_forcevariable = ",fortran"
 RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
 
-DISTRO_FEATURES_remove = " wayland opengl pulseaudio opengles egl"
+DISTRO_FEATURES_remove = " wayland opengl pulseaudio opengles egl ptest "
 PACKAGECONFIG_pn-qtwebkit = " fontconfig "
 PACKAGECONFIG_DEFAULT_pn-qtbase_remove = " dbus udev evdev "
 PACKAGECONFIG_DEFAULT_pn-qtbase_append = " fontconfig "
