@@ -7,7 +7,7 @@ resources:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
       BB_NUMBER_THREADS: 4
-      PARALLEL_MAKE: -j 16 
+      PARALLEL_MAKE: -j 8 
 
 jobs:
 - job: build_qemux86_64
