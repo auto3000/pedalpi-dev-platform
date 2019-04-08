@@ -6,7 +6,7 @@ resources:
     env:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
-      BB_NUMBER_THREADS: 4
+      BB_NUMBER_THREADS: 8
       PARALLEL_MAKE: -j 12 
 
 jobs:
