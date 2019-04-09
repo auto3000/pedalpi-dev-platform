@@ -23,6 +23,8 @@ QT_CONFIG_FLAGS_pn-qtbase_append = " -qt-zlib \
              -nomake examples \
              -nomake tools \
              -nomake tests \
+             -nomake demos \
+             -nomake docs \
              -no-audio-backend \
              -no-dbus \
              -no-gstreamer \
