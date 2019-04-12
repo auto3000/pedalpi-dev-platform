@@ -1,0 +1,77 @@
+container:
+  dockerfile: Dockerfile
+  cpu: 8
+  memory: 24
+
+.build_env_template: &build_env_template
+  LC_ALL: en_US.UTF-8
+  LANG: en_US.UTF-8
+  BB_NUMBER_THREADS: 8
+  PARALLEL_MAKE: -j 4
+  GITHUB_TOKEN_FOR_CIRRUSCI: ENCRYPTED[b616f030c6538608b10312b0b1959e48e7c635c360d18888e5d82ebf19e1bbf410e035d699b5a686f907afe85712aa98]
+
+.buildcommand_template: &buildcommand_template
+    populate_script: |
+        source init.sh $TARGET
+        echo 'SCONF_VERSION = "1"'  > conf/site.conf
+        echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+        echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+        timeout -k 600 560 bash -c "bitbake ruby-rdf-native | cat -" || echo build is not finished yet
+
+.rebuildcommand_template: &rebuildcommand_template
+    repopulate_script: |
+        source init.sh $TARGET
+        echo 'SCONF_VERSION = "1"'  > conf/site.conf
+        echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+        echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+        bitbake pedalpi-dev-platform | cat -
+        test -f pedalpi-src-build/images/$TARGET/$ARTIFACTS
+
+.publishcommand_template: &publishcommand_template
+    publish_script: |
+        if [ $BRANCH != "master" ]; then
+          filename=$(ls pedalpi-src-build/images/$TARGET/$ARTIFACTS)
+          bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRRUSCI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename="$filename"
+        fi
+
+.yoctocache_template: &yoctocache_template
+    yocto_cache:
+        folder: pedalpi-src-build
+        fingerprint_script: echo $(git rev-parse HEAD)-$TARGET
+        <<: *buildcommand_template
+
+.build_step_template: &build_step_template
+  timeout_in: 120m
+  <<: *yoctocache_template
+  <<: *rebuildcommand_template
+  <<: *publishcommand_template
+
+
+.build_raspberrypi3_task:
+  <<: *build_step_template
+  env:
+    <<: *build_env_template
+    TARGET: raspberrypi3
+    ARTIFACTS: 'pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg'
+
+.build_raspberrypi2_task:
+  <<: *build_step_template
+  env:
+    <<: *build_env_template
+    TARGET: raspberrypi2
+    ARTIFACTS: 'pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg'
+
+build_qemux86-64_task:
+  <<: *build_step_template
+  env:
+    <<: *build_env_template
+    TARGET: qemux86-64
+    ARTIFACTS: 'pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2'
+
+.build_nanopi-neo-air_task:
+  <<: *build_step_template
+  env:
+    <<: *build_env_template
+    TARGET: nanopi-neo-air
+    ARTIFACTS: 'pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg'
+

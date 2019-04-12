@@ -5,11 +5,13 @@ USER_CLASSES ?= "buildstats image-mklibs image-prelink"
 PATCHRESOLVE ?= "noop"
 LICENSE_FLAGS_WHITELIST  += "commercial"
 
+GTKGLIBC_RRECOMMENDS = ""
+
 # Enable fortran
 FORTRAN_forcevariable = ",fortran"
 RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
 
-DISTRO_FEATURES_remove = " wayland opengl pulseaudio opengles egl"
+DISTRO_FEATURES_remove = " wayland opengl pulseaudio opengles egl ptest "
 PACKAGECONFIG_pn-qtwebkit = " fontconfig "
 PACKAGECONFIG_DEFAULT_pn-qtbase_remove = " dbus udev evdev "
 PACKAGECONFIG_DEFAULT_pn-qtbase_append = " fontconfig "
@@ -21,6 +23,7 @@ QT_CONFIG_FLAGS_pn-qtbase_append = " -qt-zlib \
              -nomake examples \
              -nomake tools \
              -nomake tests \
+             -nomake docs \
              -no-audio-backend \
              -no-dbus \
              -no-gstreamer \
