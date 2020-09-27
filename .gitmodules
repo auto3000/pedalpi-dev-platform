@@ -26,3 +26,7 @@
 	path = meta-qt5
 	url = https://github.com/meta-qt5/meta-qt5
 	branch = morty 
+[submodule "meta-meson"]
+	path = meta-meson
+	url = https://github.com/superna9999/meta-meson.git
+	branch = morty
