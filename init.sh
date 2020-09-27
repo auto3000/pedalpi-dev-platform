@@ -16,11 +16,13 @@ function setupGitSubmodules() {
 
     local targets=(
         "qemux86-64"
+        "odroid-c2"
         "raspberrypi2"
         "raspberrypi3"
         "nanopi-neo-air")
     local supported=(
         "qemux86-64"
+        "odroid-c2"
         "raspberrypi2"
         "raspberrypi3"
         "nanopi-neo-air")
@@ -65,6 +67,7 @@ function setupGitSubmodules() {
     # Multiple layers can be specified for a target if space-separated.
     declare -A bsparr
     bsparr["qemux86-64"]=""
+    bsparr["odroid-c2"]="meta-meson"
     bsparr["raspberrypi2"]="meta-raspberrypi"
     bsparr["raspberrypi3"]="meta-raspberrypi"
     bsparr["nanopi-neo-air"]="meta-sunxi meta-nanopi-neo-air"
