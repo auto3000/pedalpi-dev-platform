@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build_nanopi: &build_nanopi
+  .build_nanopi: &build_nanopi
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -49,7 +49,7 @@ jobs:
           root: pedalpi-src-build/tmp/deploy/images/
           paths:
               - nanopi-neo-air
-  build_qemux86: &build_qemux86
+  .build_qemux86: &build_qemux86
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -98,7 +98,7 @@ jobs:
           root: pedalpi-src-build/tmp/deploy/images/
           paths:
               - qemux86-64
-  build_raspberrypi2: &build_raspberrypi2
+  .build_raspberrypi2: &build_raspberrypi2
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -147,7 +147,7 @@ jobs:
           root: pedalpi-src-build/tmp/deploy/images/
           paths:
               - raspberrypi2
-  build_raspberrypi3: &build_raspberrypi3
+  .build_raspberrypi3: &build_raspberrypi3
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
