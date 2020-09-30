@@ -7,7 +7,7 @@ jobs:
       BB_NUMBER_THREADS: 2
       PARALLEL_MAKE: -j 2
     docker:
-      - image: crops/yocto:ubuntu-14.04-builder
+      - image: crops/yocto:ubuntu-16.04-builder
     steps:
       - checkout
       - restore_cache:
@@ -56,7 +56,7 @@ jobs:
       BB_NUMBER_THREADS: 2
       PARALLEL_MAKE: -j 2
     docker:
-      - image: crops/yocto:ubuntu-14.04-builder
+      - image: crops/yocto:ubuntu-16.04-builder
     steps:
       - checkout
       - restore_cache:
@@ -105,7 +105,7 @@ jobs:
       BB_NUMBER_THREADS: 2
       PARALLEL_MAKE: -j 2
     docker:
-      - image: crops/yocto:ubuntu-14.04-builder
+      - image: crops/yocto:ubuntu-16.04-builder
     steps:
       - checkout
       - restore_cache:
@@ -154,7 +154,7 @@ jobs:
       BB_NUMBER_THREADS: 2
       PARALLEL_MAKE: -j 2
     docker:
-      - image: crops/yocto:ubuntu-14.04-builder
+      - image: crops/yocto:ubuntu-16.04-builder
     steps:
       - checkout
       - restore_cache:
