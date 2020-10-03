@@ -49,6 +49,56 @@ jobs:
           root: pedalpi-src-build/tmp/deploy/images/
           paths:
               - nanopi-neo-air
+  .build_odroidc2: &build_odroidc2
+    environment:
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+      BB_NUMBER_THREADS: 2
+      PARALLEL_MAKE: -j 2
+    docker:
+      - image: crops/yocto:ubuntu-16.04-builder
+    steps:
+      - checkout
+      - restore_cache:
+              keys:
+                  - sstate-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v1-odroidc2-{{ .Branch }}-
+                  - sstate-v1-odroidc2-
+                  - sstate-v1-
+      - restore_cache:
+              keys:
+                  - dldir-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v1-odroidc2-{{ .Branch }}-
+                  - dldir-v1-odroidc2-
+                  - dldir-v1-
+      - run:
+          name: Build the odroid-c2 image
+          no_output_timeout: 90m
+          command: |
+            source init.sh odroid-c2
+            echo 'SCONF_VERSION = "1"' > conf/site.conf
+            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
+            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
+            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
+                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
+            else
+                bitbake pedalpi-dev-platform | cat -
+            fi
+            mkdir -p ~/pedalpi-src-build/tmp/deploy/images/
+      - save_cache:
+              key: dldir-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
+              paths:
+                  - "/tmp/downloads"
+      - save_cache:
+              key: sstate-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
+              paths:
+                  - "/tmp/sstate-cache"
+      - store_artifacts:
+          path: pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2/
+      - persist_to_workspace:
+          root: ~/project/pedalpi-src-build/tmp/deploy/images/
+          paths:
+              - hardkernel-odroidc2
   .build_qemux86: &build_qemux86
     environment:
       LC_ALL: en_US.UTF-8
@@ -208,6 +258,18 @@ jobs:
             command: |
               filename=$(ls images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
               bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+  deploy_odroidc2:
+    docker:
+        - image: making/alpine-java-bash-git
+    steps:
+        - checkout
+        - attach_workspace:
+            at: images
+        - run:
+            name: Deploy the odroid-c2 image
+            command: |
+              filename=$(ls images/hardkernel-odroidc2/pedalpi-dev-platform-hardkernel-odroidc2-*.rootfs.wic)
+              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
   deploy_raspberrypi2:
     docker:
         - image: making/alpine-java-bash-git
@@ -250,6 +312,12 @@ jobs:
 
   build_nanopi:
       <<: *build_nanopi
+
+  build_odroidc2_step1:
+      <<: *build_odroidc2
+
+  build_odroidc2:
+      <<: *build_odroidc2
 
   build_qemux86_step1:
       <<: *build_qemux86
@@ -300,6 +368,11 @@ workflows:
     jobs:
       - build_raspberrypi2_step1
       - build_raspberrypi3_step1
+      - build_odroidc2_step1:
+          filters:
+            branches:
+              ignore:
+                - master
       - build_nanopi_step1
       - build_qemux86_step1
       - build_raspberrypi2:
@@ -311,6 +384,12 @@ workflows:
       - build_nanopi:
           requires:
               - build_nanopi_step1
+      - build_odroidc2:
+          requires:
+              - build_odroidc2_step1
+          filters:
+            branches:
+              ignore: master
       - build_qemux86:
           requires:
               - build_qemux86_step1
