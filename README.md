@@ -5,6 +5,7 @@ This project is a limitless pedalboard for guitarists based on cheap single boar
 ### Table of Contents
 1. [How to run PedalPII](#how-to-run-pedalpii)
 2. [Supported hardware](#supported-hardware)
+2. [Supported software](#supported-software)
 3. [Alternatives to PedalPII](#alternatives-to-pedalpii)
 4. [How to build from scratch](#how-to-build-from-scratch)
 
@@ -58,7 +59,6 @@ $ cat /proc/asound/cards
 $ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
 ```
 
-
 # Supported hardware
 
 The PedalPII comes into three flavors: (1) Raspberry PI 2 or 3, (2) NanoPI Neo Air, and (3) Docker image for X86-64.
@@ -69,6 +69,15 @@ The PedalPII comes into three flavors: (1) Raspberry PI 2 or 3, (2) NanoPI Neo A
 
 PedalPII is multiplatform thanks to the Linux Yocto software architecture, and retarget to a new hardware platform must be easy. You can find a non-exhaustive (!) [list of +5000 supported hardware](http://layers.openembedded.org/layerindex/branch/master/machines/?q=&search=1). You may port this software to any variant of Orange PI, C.H.I.P., IMX8MQ, Tegra X1 or Odroid-XU4. To reach sufficient performance for any installed pedal effect, the minimal hardware requirement would be a dual core at 1GHz, 128MB of RAM and 1GB of flash. You may also want to remove some included development tools and shrink down to 400MB of flash.
 
+# Supported software
+
+This platform integrates a lot of LV2 plugins for effects, MOD suite and JACK for audio platform. The complete list is provided by [meta-pedalpi layer](https://github.com/auto3000/meta-pedalpi).
+
+This software layer is built over the Yocto 'morty' release and additional support layers. Again, the list is too large but these layers provides the build system, python, ruby, QT5, and any runtime required to support LV2 plugins, MOD suite and JACK software.
+
+This branch is based on the Yocto 'morty' release and you can find its latest version at [morty branch](https://github.com/auto3000/pedalpi-dev-platform/tree/morty).
+
+For info on available baselines, please refer to [master branch](https://github.com/auto3000/pedalpi-dev-platform/tree/master) of this repository.
 
 # Alternatives to PedalPII
 
