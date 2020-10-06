@@ -1,11 +1,11 @@
 [submodule "poky"]
 	path = poky
 	url = git://git.yoctoproject.org/poky
-	branch = morty
+	branch = zeus
 [submodule "meta-openembedded"]
 	path = meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
-	branch = morty
+	branch = zeus
 [submodule "meta-raspberrypi"]
 	path = meta-raspberrypi
 	url = git://git.yoctoproject.org/meta-raspberrypi
@@ -13,7 +13,7 @@
 [submodule "meta-pedalpi"]
 	path = meta-pedalpi
 	url = https://github.com/auto3000/meta-pedalpi
-	branch = morty
+	branch = zeus
 [submodule "meta-omega"]
 	path = meta-omega
 	url = https://github.com/lcrb/meta-omega
@@ -26,8 +26,8 @@
 [submodule "meta-qt5"]
 	path = meta-qt5
 	url = https://github.com/meta-qt5/meta-qt5
-	branch = morty 
+	branch = zeus
 [submodule "meta-meson"]
 	path = meta-meson
 	url = https://github.com/superna9999/meta-meson.git
-	branch = morty
+	branch = zeus
