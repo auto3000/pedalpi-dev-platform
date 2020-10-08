@@ -12,16 +12,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-nanopi-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v1-nanopi-{{ .Branch }}-
-                  - sstate-v1-nanopi-
-                  - sstate-v1-
+                  - sstate-v2-nanopi-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v2-nanopi-{{ .Branch }}-
+                  - sstate-v2-nanopi-
+                  - sstate-v2-
       - restore_cache:
               keys:
-                  - dldir-v1-nanopi-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v1-nanopi-{{ .Branch }}-
-                  - dldir-v1-nanopi-
-                  - dldir-v1-
+                  - dldir-v2-nanopi-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v2-nanopi-{{ .Branch }}-
+                  - dldir-v2-nanopi-
+                  - dldir-v2-
       - run:
           name: Build the nanopi-neo-air image
           no_output_timeout: 90m
@@ -37,11 +37,11 @@ jobs:
                 bitbake pedalpi-dev-platform | cat -
             fi
       - save_cache:
-              key: dldir-v1-nanopi-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v2-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-nanopi-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v2-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -62,16 +62,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v1-odroidc2-{{ .Branch }}-
-                  - sstate-v1-odroidc2-
-                  - sstate-v1-
+                  - sstate-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v2-odroidc2-{{ .Branch }}-
+                  - sstate-v2-odroidc2-
+                  - sstate-v2-
       - restore_cache:
               keys:
-                  - dldir-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v1-odroidc2-{{ .Branch }}-
-                  - dldir-v1-odroidc2-
-                  - dldir-v1-
+                  - dldir-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v2-odroidc2-{{ .Branch }}-
+                  - dldir-v2-odroidc2-
+                  - dldir-v2-
       - run:
           name: Build the odroid-c2 image
           no_output_timeout: 90m
@@ -87,11 +87,11 @@ jobs:
                 bitbake pedalpi-dev-platform | cat -
             fi
       - save_cache:
-              key: dldir-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -112,16 +112,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-qemux86-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v1-qemux86-{{ .Branch }}-
-                  - sstate-v1-qemux86-
-                  - sstate-v1-
+                  - sstate-v2-qemux86-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v2-qemux86-{{ .Branch }}-
+                  - sstate-v2-qemux86-
+                  - sstate-v2-
       - restore_cache:
               keys:
-                  - dldir-v1-qemux86-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v1-qemux86-{{ .Branch }}-
-                  - dldir-v1-qemux86-
-                  - dldir-v1-
+                  - dldir-v2-qemux86-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v2-qemux86-{{ .Branch }}-
+                  - dldir-v2-qemux86-
+                  - dldir-v2-
       - run:
           name: Build the qemux86-64 image
           no_output_timeout: 90m
@@ -137,11 +137,11 @@ jobs:
                 bitbake pedalpi-dev-platform | cat -
             fi
       - save_cache:
-              key: dldir-v1-qemux86-{{ .Branch }}{{ .Revision }}
+              key: dldir-v2-qemux86-{{ .Branch }}{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-qemux86-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v2-qemux86-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -162,16 +162,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v1-raspberrypi2-{{ .Branch }}-
-                  - sstate-v1-raspberrypi2-
-                  - sstate-v1-
+                  - sstate-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v2-raspberrypi2-{{ .Branch }}-
+                  - sstate-v2-raspberrypi2-
+                  - sstate-v2-
       - restore_cache:
               keys:
-                  - dldir-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v1-raspberrypi2-{{ .Branch }}-
-                  - dldir-v1-raspberrypi2-
-                  - dldir-v1-
+                  - dldir-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v2-raspberrypi2-{{ .Branch }}-
+                  - dldir-v2-raspberrypi2-
+                  - dldir-v2-
       - run:
           name: Build the raspberrypi2 image
           no_output_timeout: 90m
@@ -187,11 +187,11 @@ jobs:
                 bitbake pedalpi-dev-platform | cat -
             fi
       - save_cache:
-              key: dldir-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -212,16 +212,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v1-raspberrypi3-{{ .Branch }}-
-                  - sstate-v1-raspberrypi3-{{ .Branch }}-
-                  - sstate-v1-
+                  - sstate-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v2-raspberrypi3-{{ .Branch }}-
+                  - sstate-v2-raspberrypi3-{{ .Branch }}-
+                  - sstate-v2-
       - restore_cache:
               keys:
-                  - dldir-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v1-raspberrypi3-{{ .Branch }}-
-                  - dldir-v1-raspberrypi3-{{ .Branch }}-
-                  - dldir-v1-
+                  - dldir-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v2-raspberrypi3-{{ .Branch }}-
+                  - dldir-v2-raspberrypi3-{{ .Branch }}-
+                  - dldir-v2-
       - run:
           name: Build the raspberrypi3 image
           no_output_timeout: 90m
@@ -237,11 +237,11 @@ jobs:
                 bitbake pedalpi-dev-platform | cat -
             fi
       - save_cache:
-              key: dldir-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
