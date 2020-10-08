@@ -31,3 +31,7 @@
 	path = meta-meson
 	url = https://github.com/superna9999/meta-meson.git
 	branch = zeus
+[submodule "meta-cloud-services"]
+	path = meta-cloud-services
+	url = git://git.yoctoproject.org/meta-cloud-services.git
+	branch = zeus
