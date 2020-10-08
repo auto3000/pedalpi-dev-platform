@@ -261,7 +261,7 @@ jobs:
             name: Deploy the nanopi-neo-air image
             command: |
               filename=$(ls images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
-              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+              github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_odroidc2:
     docker:
         - image: making/alpine-java-bash-git
@@ -273,7 +273,7 @@ jobs:
             name: Deploy the odroid-c2 image
             command: |
               filename=$(ls images/hardkernel-odroidc2/pedalpi-dev-platform-hardkernel-odroidc2-*.rootfs.wic)
-              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+              github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_raspberrypi2:
     docker:
         - image: making/alpine-java-bash-git
@@ -285,7 +285,7 @@ jobs:
             name: Deploy the raspberrypi2 image
             command: |
               filename=$(ls images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg)
-              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+              github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_raspberrypi3:
     docker:
         - image: making/alpine-java-bash-git
@@ -297,7 +297,7 @@ jobs:
             name: Deploy the raspberrypi3 image
             command: |
               filename=$(ls images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg)
-              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+              github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_qemux86:
     docker:
         - image: making/alpine-java-bash-git
@@ -309,7 +309,7 @@ jobs:
             name: Deploy the qemux86 root filesystem
             command: |
               filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
-              bash ./upload-github-release-asset.sh github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename
+              github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
 
   build_nanopi_step1:
       <<: *build_nanopi
