@@ -26,6 +26,7 @@ jobs:
           name: Build the nanopi-neo-air image
           no_output_timeout: 90m
           command: |
+            rm -rf ~/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air && touch ~/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/sentinelle
             source init.sh nanopi-neo-air
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -35,7 +36,6 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
-            mkdir -p ~/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air
       - save_cache:
               key: dldir-v1-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -76,6 +76,7 @@ jobs:
           name: Build the odroid-c2 image
           no_output_timeout: 90m
           command: |
+            rm -rf ~/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2 && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2 && touch ~/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2/sentinelle
             source init.sh odroid-c2
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -85,7 +86,6 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
-            mkdir -p ~/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2
       - save_cache:
               key: dldir-v1-odroidc2-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -126,6 +126,7 @@ jobs:
           name: Build the qemux86-64 image
           no_output_timeout: 90m
           command: |
+            rm -rf ~/pedalpi-src-build/tmp/deploy/images/qemux86-64 && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/qemux86-64 && touch ~/pedalpi-src-build/tmp/deploy/images/qemux86-64/sentinelle
             source init.sh qemux86-64
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -135,7 +136,6 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
-            mkdir -p ~/pedalpi-src-build/tmp/deploy/images/qemux86-64
       - save_cache:
               key: dldir-v1-qemux86-{{ .Branch }}{{ .Revision }}
               paths:
@@ -176,6 +176,7 @@ jobs:
           name: Build the raspberrypi2 image
           no_output_timeout: 90m
           command: |
+            rm -rf ~/pedalpi-src-build/tmp/deploy/images/raspberrypi2 && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/raspberrypi2 && touch ~/pedalpi-src-build/tmp/deploy/images/raspberrypi2/sentinelle
             source init.sh raspberrypi2
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -185,7 +186,6 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
-            mkdir -p ~/pedalpi-src-build/tmp/deploy/images/raspberrypi2
       - save_cache:
               key: dldir-v1-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -226,6 +226,7 @@ jobs:
           name: Build the raspberrypi3 image
           no_output_timeout: 90m
           command: |
+            rm -rf ~/pedalpi-src-build/tmp/deploy/images/raspberrypi3 && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/raspberrypi3 && touch ~/pedalpi-src-build/tmp/deploy/images/raspberrypi3/sentinelle
             source init.sh raspberrypi3
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -235,7 +236,6 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
-            mkdir -p ~/pedalpi-src-build/tmp/deploy/images/raspberrypi3
       - save_cache:
               key: dldir-v1-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -260,7 +260,7 @@ jobs:
         - run:
             name: Deploy the nanopi-neo-air image
             command: |
-              filename=$(ls images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg)
+              filename=$(ls images/nanopi-neo-air/pedalpi-dev-platform-nanopi-neo-air-*.rootfs.sunxi-sdimg | head -n 1)
               github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_odroidc2:
     docker:
@@ -272,7 +272,7 @@ jobs:
         - run:
             name: Deploy the odroid-c2 image
             command: |
-              filename=$(ls images/hardkernel-odroidc2/pedalpi-dev-platform-hardkernel-odroidc2-*.rootfs.wic)
+              filename=$(ls images/hardkernel-odroidc2/pedalpi-dev-platform-hardkernel-odroidc2-*.rootfs.wic | head -n 1)
               github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_raspberrypi2:
     docker:
@@ -284,7 +284,7 @@ jobs:
         - run:
             name: Deploy the raspberrypi2 image
             command: |
-              filename=$(ls images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg)
+              filename=$(ls images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg | head -n 1)
               github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_raspberrypi3:
     docker:
@@ -296,7 +296,7 @@ jobs:
         - run:
             name: Deploy the raspberrypi3 image
             command: |
-              filename=$(ls images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg)
+              filename=$(ls images/raspberrypi3/pedalpi-dev-platform-raspberrypi3-*.rootfs.rpi-sdimg | head -n 1)
               github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_qemux86:
     docker:
@@ -308,7 +308,7 @@ jobs:
         - run:
             name: Deploy the qemux86 root filesystem
             command: |
-              filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2)
+              filename=$(ls images/qemux86-64/pedalpi-dev-platform-qemux86-64-*.rootfs.tar.bz2 | head -n 1)
               github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
 
   build_nanopi_step1:
