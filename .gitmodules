@@ -29,7 +29,7 @@
 	branch = zeus
 [submodule "meta-meson"]
 	path = meta-meson
-	url = https://github.com/superna9999/meta-meson.git
+	url = https://github.com/Rezzonics/meta-meson.git
 	branch = zeus
 [submodule "meta-cloud-services"]
 	path = meta-cloud-services
