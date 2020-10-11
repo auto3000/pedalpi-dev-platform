@@ -28,7 +28,7 @@ RDEPENDS_${PN}-test = " \
     ${PN}-base \
     dropbear \
     openssh-sftp-server \
-    iperf \
+    iperf2 \
     lmbench \
 "
 
