@@ -1,7 +1,5 @@
 
-# wiringpi is not required, but it provides 'gpio' utility that could help
-# for diagnostics
-RDEPENDS_${PN} += " python3-rpi-gpio wiringpi "
+RDEPENDS_${PN} += " python3-rpi-gpio "
 
 FILES_${PN}_append = " ${sysconfdir}/default "
 
