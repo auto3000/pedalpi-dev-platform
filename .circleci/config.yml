@@ -26,7 +26,6 @@ jobs:
           name: Build the nanopi-neo-air image
           no_output_timeout: 90m
           command: |
-            rm -rf ~/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air && touch ~/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/sentinelle
             source init.sh nanopi-neo-air
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -36,6 +35,8 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
+            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air
+            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/sentinelle.txt
       - save_cache:
               key: dldir-v2-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -47,7 +48,7 @@ jobs:
       - store_artifacts:
           path: pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/
       - persist_to_workspace:
-          root: ~/project/pedalpi-src-build/tmp/deploy/images/
+          root: /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images
           paths:
               - nanopi-neo-air
   .build_odroidc2: &build_odroidc2
@@ -76,7 +77,6 @@ jobs:
           name: Build the odroid-c2 image
           no_output_timeout: 90m
           command: |
-            rm -rf ~/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2 && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2 && touch ~/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2/sentinelle
             source init.sh odroid-c2
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -86,6 +86,8 @@ jobs:
             else
                 bitbake pedalpi-dev-platform -c do_image_tar | cat -
             fi
+            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2
+            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2/sentinelle.txt
       - save_cache:
               key: dldir-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -97,7 +99,7 @@ jobs:
       - store_artifacts:
           path: pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2/
       - persist_to_workspace:
-          root: ~/project/pedalpi-src-build/tmp/deploy/images/
+          root: /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images
           paths:
               - hardkernel-odroidc2
   .build_qemux86: &build_qemux86
@@ -126,7 +128,6 @@ jobs:
           name: Build the qemux86-64 image
           no_output_timeout: 90m
           command: |
-            rm -rf ~/pedalpi-src-build/tmp/deploy/images/qemux86-64 && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/qemux86-64 && touch ~/pedalpi-src-build/tmp/deploy/images/qemux86-64/sentinelle
             source init.sh qemux86-64
             echo 'SCONF_VERSION = "1"' > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -136,6 +137,8 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
+            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/qemux86-64
+            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/qemux86-64/sentinelle.txt
       - save_cache:
               key: dldir-v2-qemux86-{{ .Branch }}{{ .Revision }}
               paths:
@@ -147,7 +150,7 @@ jobs:
       - store_artifacts:
           path: pedalpi-src-build/tmp/deploy/images/qemux86-64/
       - persist_to_workspace:
-          root: ~/project/pedalpi-src-build/tmp/deploy/images/
+          root: /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images
           paths:
               - qemux86-64
   .build_raspberrypi2: &build_raspberrypi2
@@ -176,7 +179,6 @@ jobs:
           name: Build the raspberrypi2 image
           no_output_timeout: 90m
           command: |
-            rm -rf ~/pedalpi-src-build/tmp/deploy/images/raspberrypi2 && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/raspberrypi2 && touch ~/pedalpi-src-build/tmp/deploy/images/raspberrypi2/sentinelle
             source init.sh raspberrypi2
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -186,6 +188,8 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
+            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi2
+            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi2/sentinelle.txt
       - save_cache:
               key: dldir-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -197,7 +201,7 @@ jobs:
       - store_artifacts:
           path: pedalpi-src-build/tmp/deploy/images/raspberrypi2/
       - persist_to_workspace:
-          root: ~/project/pedalpi-src-build/tmp/deploy/images/
+          root: /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images
           paths:
               - raspberrypi2
   .build_raspberrypi3: &build_raspberrypi3
@@ -226,7 +230,6 @@ jobs:
           name: Build the raspberrypi3 image
           no_output_timeout: 90m
           command: |
-            rm -rf ~/pedalpi-src-build/tmp/deploy/images/raspberrypi3 && mkdir -p ~/pedalpi-src-build/tmp/deploy/images/raspberrypi3 && touch ~/pedalpi-src-build/tmp/deploy/images/raspberrypi3/sentinelle
             source init.sh raspberrypi3
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
@@ -236,6 +239,8 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
+            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi3
+            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi3/sentinelle.txt
       - save_cache:
               key: dldir-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -247,7 +252,7 @@ jobs:
       - store_artifacts:
           path: pedalpi-src-build/tmp/deploy/images/raspberrypi3/
       - persist_to_workspace:
-          root: ~/project/pedalpi-src-build/tmp/deploy/images/
+          root: /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images
           paths:
               - raspberrypi3
   deploy_nanopi:
