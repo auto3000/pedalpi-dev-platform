@@ -56,7 +56,7 @@ $ cat /proc/asound/cards
  1 [Adapter        ]: USB-Audio - Rocksmith USB Guitar Adapter
                       Hercules Rocksmith USB Guitar Adapter at usb-0000:00:14.0-2, full speed
 
-$ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s "  --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
+$ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s " --cap-add SYS_NICE --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
 ```
 
 # Supported hardware
