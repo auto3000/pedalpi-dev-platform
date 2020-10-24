@@ -218,13 +218,13 @@ jobs:
               keys:
                   - sstate-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
                   - sstate-v2-raspberrypi3-{{ .Branch }}-
-                  - sstate-v2-raspberrypi3-{{ .Branch }}-
+                  - sstate-v2-raspberrypi3-
                   - sstate-v2-
       - restore_cache:
               keys:
                   - dldir-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
                   - dldir-v2-raspberrypi3-{{ .Branch }}-
-                  - dldir-v2-raspberrypi3-{{ .Branch }}-
+                  - dldir-v2-raspberrypi3-
                   - dldir-v2-
       - run:
           name: Build the raspberrypi3 image
