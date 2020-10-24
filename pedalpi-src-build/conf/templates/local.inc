@@ -5,6 +5,9 @@ USER_CLASSES ?= "buildstats image-mklibs image-prelink"
 PATCHRESOLVE ?= "noop"
 LICENSE_FLAGS_WHITELIST  += "commercial"
 
+# MOD tools requires a legacy Tornado library
+PREFERRED_VERSION_python3-tornado = "4.2"
+
 # Enable fortran
 FORTRAN_forcevariable = ",fortran"
 RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
