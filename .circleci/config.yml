@@ -12,16 +12,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v2-nanopi-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v2-nanopi-{{ .Branch }}-
-                  - sstate-v2-nanopi-
-                  - sstate-v2-
+                  - sstate-v3-nanopi-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-nanopi-{{ .Branch }}-
+                  - sstate-v3-nanopi-
+                  - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v2-nanopi-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v2-nanopi-{{ .Branch }}-
-                  - dldir-v2-nanopi-
-                  - dldir-v2-
+                  - dldir-v3-nanopi-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-nanopi-{{ .Branch }}-
+                  - dldir-v3-nanopi-
+                  - dldir-v3-
       - run:
           name: Build the nanopi-neo-air image
           no_output_timeout: 90m
@@ -38,11 +38,11 @@ jobs:
             mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air
             date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/sentinelle.txt
       - save_cache:
-              key: dldir-v2-nanopi-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v2-nanopi-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -63,16 +63,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v2-odroidc2-{{ .Branch }}-
-                  - sstate-v2-odroidc2-
-                  - sstate-v2-
+                  - sstate-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-odroidc2-{{ .Branch }}-
+                  - sstate-v3-odroidc2-
+                  - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v2-odroidc2-{{ .Branch }}-
-                  - dldir-v2-odroidc2-
-                  - dldir-v2-
+                  - dldir-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-odroidc2-{{ .Branch }}-
+                  - dldir-v3-odroidc2-
+                  - dldir-v3-
       - run:
           name: Build the odroid-c2 image
           no_output_timeout: 90m
@@ -89,11 +89,11 @@ jobs:
             mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2
             date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2/sentinelle.txt
       - save_cache:
-              key: dldir-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v2-odroidc2-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -114,16 +114,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v2-qemux86-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v2-qemux86-{{ .Branch }}-
-                  - sstate-v2-qemux86-
-                  - sstate-v2-
+                  - sstate-v3-qemux86-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-qemux86-{{ .Branch }}-
+                  - sstate-v3-qemux86-
+                  - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v2-qemux86-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v2-qemux86-{{ .Branch }}-
-                  - dldir-v2-qemux86-
-                  - dldir-v2-
+                  - dldir-v3-qemux86-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-qemux86-{{ .Branch }}-
+                  - dldir-v3-qemux86-
+                  - dldir-v3-
       - run:
           name: Build the qemux86-64 image
           no_output_timeout: 90m
@@ -140,11 +140,11 @@ jobs:
             mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/qemux86-64
             date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/qemux86-64/sentinelle.txt
       - save_cache:
-              key: dldir-v2-qemux86-{{ .Branch }}{{ .Revision }}
+              key: dldir-v3-qemux86-{{ .Branch }}{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v2-qemux86-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-qemux86-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -165,16 +165,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v2-raspberrypi2-{{ .Branch }}-
-                  - sstate-v2-raspberrypi2-
-                  - sstate-v2-
+                  - sstate-v3-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-raspberrypi2-{{ .Branch }}-
+                  - sstate-v3-raspberrypi2-
+                  - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v2-raspberrypi2-{{ .Branch }}-
-                  - dldir-v2-raspberrypi2-
-                  - dldir-v2-
+                  - dldir-v3-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-raspberrypi2-{{ .Branch }}-
+                  - dldir-v3-raspberrypi2-
+                  - dldir-v3-
       - run:
           name: Build the raspberrypi2 image
           no_output_timeout: 90m
@@ -191,11 +191,11 @@ jobs:
             mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi2
             date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi2/sentinelle.txt
       - save_cache:
-              key: dldir-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v2-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-raspberrypi2-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -216,16 +216,16 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v2-raspberrypi3-{{ .Branch }}-
-                  - sstate-v2-raspberrypi3-
-                  - sstate-v2-
+                  - sstate-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-raspberrypi3-{{ .Branch }}-
+                  - sstate-v3-raspberrypi3-
+                  - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v2-raspberrypi3-{{ .Branch }}-
-                  - dldir-v2-raspberrypi3-
-                  - dldir-v2-
+                  - dldir-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-raspberrypi3-{{ .Branch }}-
+                  - dldir-v3-raspberrypi3-
+                  - dldir-v3-
       - run:
           name: Build the raspberrypi3 image
           no_output_timeout: 90m
@@ -242,11 +242,11 @@ jobs:
             mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi3
             date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi3/sentinelle.txt
       - save_cache:
-              key: dldir-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v2-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
