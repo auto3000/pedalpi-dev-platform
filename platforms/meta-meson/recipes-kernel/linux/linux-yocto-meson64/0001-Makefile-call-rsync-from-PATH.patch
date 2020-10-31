@@ -1,0 +1,22 @@
+From 949b99f58805fb054dcd6524b7f09661ad948715 Mon Sep 17 00:00:00 2001
+From: auto3000 <auto3000@users.noreply.github.com>
+Date: Sat, 31 Oct 2020 12:56:16 +0100
+Subject: [PATCH] Makefile: call rsync from PATH
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 1b2f4fcd697d..50adfd7d08d1 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1181,7 +1181,7 @@ export INSTALL_HDR_PATH = $(objtree)/usr
+ quiet_cmd_headers_install = INSTALL $(INSTALL_HDR_PATH)/include
+       cmd_headers_install = \
+ 	mkdir -p $(INSTALL_HDR_PATH); \
+-	/usr/bin/rsync -mrl --include='*/' --include='*\.h' --exclude='*' \
++	rsync -mrl --include='*/' --include='*\.h' --exclude='*' \
+ 	usr/include $(INSTALL_HDR_PATH)
+ 
+ PHONY += headers_install
