@@ -18,14 +18,16 @@ sleep 1
 /etc/init.d/mod-ui start
 sleep 1
 
-/etc/init.d/mod-sdk start
-sleep 1
+if [ -f /etc/init.d/mod-sdk ]; then 
+    /etc/init.d/mod-sdk start
+    sleep 1
+fi
 
 # Launch PedalPII user interface
 echo "To quit, press CTRL-C to quit on PedalPII console"
 pedalpII
 
-/etc/init.d/mod-sdk stop
+test -f /etc/init.d/mod-sdk && /etc/init.d/mod-sdk stop
 /etc/init.d/mod-ui stop
 /etc/init.d/mod-host stop
 /etc/init.d/jackd stop
