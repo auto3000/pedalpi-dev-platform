@@ -89,7 +89,8 @@ I think PedalPII is one of the best pedal effect distribution, but of course I'm
 5. [PedalPI](https://github.com/PedalPi) is based on 40\$ Raspberry PI 3, a 3\$ USB audio card and the 10\$ Raspberry Pi Zero for physical buttons. This pedalboard is based on a combination lower software layers of MOD Duo for pedal effects and an enhanced user interface.
 6. [Guitar Extended](https://guitarextended.wordpress.com/2013/01/31/raspberry-pi-multi-effects-overview-of-the-setup/) is based on 30\$ Raspberry PI, an Arduino Uno for physical buttons, 100\$ E-MU 0404 audio card, and [Pure Data](http://puredata.info/) for software pedal effects.
 7. [Arnout's pedal](http://arre234.blogspot.com/2018/02/linux-portable-wifi-guitar-amp-on.html) is based on 7\$ Orange PI Zero, a 3\$ USB audio card. The software is relying on [Guitarix](http://guitarix.org/).
-8. I shall mention my undisclosed prior project 'PedalPI', based on a modified [Rakarrack](http://rakarrack.sourceforge.net/) software suite running 40\$ Rasperry PI 2 and 80\$ USB audio card [see history](https://github.com/auto3000/pedalpii)
+8. [Pi-FX](https://medium.com/@atippy83/guitarix-the-pi-dle-board-8d6298ca8e42) is a 224\$ setup based on a Raspberry Pi 3b, a cheap USB audio adapter and a 7" touch screen. The  software is relying on [Guitarix](http://guitarix.org/).
+9. I shall mention my undisclosed prior project 'PedalPI', based on a modified [Rakarrack](http://rakarrack.sourceforge.net/) software suite running 40\$ Rasperry PI 2 and 80\$ USB audio card [see history](https://github.com/auto3000/pedalpii)
 
 Please let me know if this list is missing your project. Note: there are numerous projects related to DIY synth or DIY amps: the software may be the same as DIY guitar pedalboards.
 
