@@ -35,7 +35,7 @@ $ docker import pedalpi-dev-platform-qemux86-64-xxxxxxxxxxxxxx.rootfs.tar.bz2 pe
 ```
 3. Run PedalPII from command line:
 ```Shell
-$ docker docker run --cap-add SYS_NICE --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it pedalpii /init-pedalpii.sh
+$ docker run --cap-add SYS_NICE --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 8081:8081 -p 9000:9000 --rm -it pedalpii /init-pedalpii.sh
 ```
 4. The graphical user interface is accessible with a browser at http://localhost:80 [see screenshot](mod-ui-screenshot.png).
 5. Plug your guitar to 'Line' audio connector of the Linux machine.
@@ -46,7 +46,7 @@ Remarks:
  - Your laptop or Linux machine is (probably) not configured to run in 'real-time', you may hear audio glitches. You shall set up properly your environment to minimize or prefer the single board computer, [see real-time audio recommendations](https://wiki.archlinux.org/index.php/Professional_audio). Ultimately, you shall install a Linux kernel for low latency (`sudo apt-get install linux-image-lowlatency` in Ubuntu and a reboot do the trick)
  - ALSA is the default for PedalPII, since ALSA is the standard in Linux distributions, this should work for most people. The variable JACKD\_OPTIONS can be used to specify another sound layer [see jackd documentation](https://linux.die.net/man/1/jackd). For info, the default JACKD\_OPTIONS is defined as below:
 ```Shell
-docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -dhw:0,0 -p 256 -n 3 -r 48000 -s " --cap-add SYS_NICE --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
+docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -dhw:0,0 -p 256 -n 3 -r 48000 -s " --cap-add SYS_NICE --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 8081:8081 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
 ```
  - If you need to specify two differents audio cards for guitar capture and audio output, you can override JACKD\_OPTIONS as below with parameters -C/-P respectively for capture/playback. In this example, a Ubisoft Rocksmith USB cable microphone is plugged for guitar capture, and internal audio card of the laptop is used for headphones.
 ```Shell
@@ -56,7 +56,7 @@ $ cat /proc/asound/cards
  1 [Adapter        ]: USB-Audio - Rocksmith USB Guitar Adapter
                       Hercules Rocksmith USB Guitar Adapter at usb-0000:00:14.0-2, full speed
 
-$ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s " --cap-add SYS_NICE --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
+$ docker run -e JACKD_OPTIONS="-P70 -p256 -t2000 -d alsa -Phw:0 -Chw:1 -p 256 -n 3 -r 48000 -s " --cap-add SYS_NICE --device /dev/snd -v /dev/log:/dev/log -p 80:80 -p 8081:8081 -p 9000:9000 --rm -it  pedalpii /init-pedalpii.sh
 ```
 
 # Supported hardware
