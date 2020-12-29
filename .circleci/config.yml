@@ -153,7 +153,7 @@ jobs:
           root: /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images
           paths:
               - qemux86-64
-  .build_raspberrypi2: &build_raspberrypi2
+  .build_raspberrypi4: &build_raspberrypi4
     environment:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
@@ -165,21 +165,21 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v3-raspberrypi2-{{ .Branch }}-{{ .Revision }}
-                  - sstate-v3-raspberrypi2-{{ .Branch }}-
-                  - sstate-v3-raspberrypi2-
+                  - sstate-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-raspberrypi4-{{ .Branch }}-
+                  - sstate-v3-raspberrypi4-
                   - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v3-raspberrypi2-{{ .Branch }}-{{ .Revision }}
-                  - dldir-v3-raspberrypi2-{{ .Branch }}-
-                  - dldir-v3-raspberrypi2-
+                  - dldir-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-raspberrypi4-{{ .Branch }}-
+                  - dldir-v3-raspberrypi4-
                   - dldir-v3-
       - run:
-          name: Build the raspberrypi2 image
+          name: Build the raspberrypi4 image
           no_output_timeout: 90m
           command: |
-            source init.sh raspberrypi2
+            source init.sh raspberrypi4
             echo 'SCONF_VERSION = "1"'  > conf/site.conf
             echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
             echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
@@ -188,22 +188,22 @@ jobs:
             else
                 bitbake pedalpi-dev-platform | cat -
             fi
-            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi2
-            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi2/sentinelle.txt
+            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi4
+            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi4/sentinelle.txt
       - save_cache:
-              key: dldir-v3-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v3-raspberrypi2-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
-          path: pedalpi-src-build/tmp/deploy/images/raspberrypi2/
+          path: pedalpi-src-build/tmp/deploy/images/raspberrypi4/
       - persist_to_workspace:
           root: /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images
           paths:
-              - raspberrypi2
+              - raspberrypi4
   .build_raspberrypi3: &build_raspberrypi3
     environment:
       LC_ALL: en_US.UTF-8
@@ -279,7 +279,7 @@ jobs:
             command: |
               filename=$(ls images/hardkernel-odroidc2/pedalpi-dev-platform-hardkernel-odroidc2-*.rootfs.wic | head -n 1)
               github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
-  deploy_raspberrypi2:
+  deploy_raspberrypi4:
     docker:
         - image: making/alpine-java-bash-git
     steps:
@@ -287,9 +287,9 @@ jobs:
         - attach_workspace:
             at: images
         - run:
-            name: Deploy the raspberrypi2 image
+            name: Deploy the raspberrypi4 image
             command: |
-              filename=$(ls images/raspberrypi2/pedalpi-dev-platform-raspberrypi2-*.rootfs.rpi-sdimg | head -n 1)
+              filename=$(ls images/raspberrypi4/pedalpi-dev-platform-raspberrypi4-*.rootfs.rpi-sdimg | head -n 1)
               github_api_token=$GITHUB_TOKEN_FOR_CIRCLECI owner=auto3000 repo=pedalpi-dev-platform tag=LATEST filename=$filename bash ./upload-github-release-asset.sh
   deploy_raspberrypi3:
     docker:
@@ -334,11 +334,11 @@ jobs:
   build_qemux86:
       <<: *build_qemux86
 
-  build_raspberrypi2_step1:
-      <<: *build_raspberrypi2
+  build_raspberrypi4_step1:
+      <<: *build_raspberrypi4
 
-  build_raspberrypi2:
-      <<: *build_raspberrypi2
+  build_raspberrypi4:
+      <<: *build_raspberrypi4
 
   build_raspberrypi3_step1:
       <<: *build_raspberrypi3
@@ -357,13 +357,13 @@ workflows:
               only:
                 - master
     jobs:
-      - build_raspberrypi2_step1
+      - build_raspberrypi4_step1
       - build_raspberrypi3_step1
       - build_nanopi_step1
       - build_qemux86_step1
-      - build_raspberrypi2:
+      - build_raspberrypi4:
           requires:
-              - build_raspberrypi2_step1
+              - build_raspberrypi4_step1
       - build_raspberrypi3:
           requires:
               - build_raspberrypi3_step1
@@ -375,7 +375,7 @@ workflows:
               - build_qemux86_step1
   build-and-deploy:
     jobs:
-      - build_raspberrypi2_step1
+      - build_raspberrypi4_step1
       - build_raspberrypi3_step1
       - build_odroidc2_step1:
           filters:
@@ -384,9 +384,9 @@ workflows:
                 - master
       - build_nanopi_step1
       - build_qemux86_step1
-      - build_raspberrypi2:
+      - build_raspberrypi4:
           requires:
-              - build_raspberrypi2_step1
+              - build_raspberrypi4_step1
       - build_raspberrypi3:
           requires:
               - build_raspberrypi3_step1
@@ -402,10 +402,10 @@ workflows:
       - build_qemux86:
           requires:
               - build_qemux86_step1
-      - deploy_raspberrypi2:
+      - deploy_raspberrypi4:
           requires:
               - build_nanopi
-              - build_raspberrypi2
+              - build_raspberrypi4
               - build_raspberrypi3
               - build_qemux86
           filters:
@@ -414,7 +414,7 @@ workflows:
       - deploy_raspberrypi3:
           requires:
               - build_nanopi
-              - build_raspberrypi2
+              - build_raspberrypi4
               - build_raspberrypi3
               - build_qemux86
           filters:
@@ -423,7 +423,7 @@ workflows:
       - deploy_nanopi:
           requires:
               - build_nanopi
-              - build_raspberrypi2
+              - build_raspberrypi4
               - build_raspberrypi3
               - build_qemux86
           filters:
@@ -432,7 +432,7 @@ workflows:
       - deploy_qemux86:
           requires:
               - build_nanopi
-              - build_raspberrypi2
+              - build_raspberrypi4
               - build_raspberrypi3
               - build_qemux86
           filters:
