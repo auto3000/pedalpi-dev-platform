@@ -19,12 +19,14 @@ function setupGitSubmodules() {
         "odroid-c2"
         "raspberrypi2"
         "raspberrypi3"
+        "raspberrypi4"
         "nanopi-neo-air")
     local supported=(
         "qemux86-64"
         "odroid-c2"
         "raspberrypi2"
         "raspberrypi3"
+        "raspberrypi4"
         "nanopi-neo-air")
     local modules=()
     local target=""
@@ -70,6 +72,7 @@ function setupGitSubmodules() {
     bsparr["odroid-c2"]="meta-meson"
     bsparr["raspberrypi2"]="meta-raspberrypi"
     bsparr["raspberrypi3"]="meta-raspberrypi"
+    bsparr["raspberrypi4"]="meta-raspberrypi"
     bsparr["nanopi-neo-air"]="meta-sunxi meta-nanopi-neo-air"
 
     # This looks somewhat complex but the intention is to clone only needed
