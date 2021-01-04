@@ -26,17 +26,7 @@ jobs:
           name: Build the nanopi-neo-air image
           no_output_timeout: 90m
           command: |
-            source init.sh nanopi-neo-air
-            echo 'SCONF_VERSION = "1"' > conf/site.conf
-            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
-                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
-            else
-                bitbake pedalpi-dev-platform | cat -
-            fi
-            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air
-            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/nanopi-neo-air/sentinelle.txt
+            source .circleci/build.sh nanopi-neo-air nanopi-neo-air
       - save_cache:
               key: dldir-v3-nanopi-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -77,17 +67,7 @@ jobs:
           name: Build the odroid-c2 image
           no_output_timeout: 90m
           command: |
-            source init.sh odroid-c2
-            echo 'SCONF_VERSION = "1"' > conf/site.conf
-            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
-                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform -c do_image_tar | cat -" || echo build is not finished yet
-            else
-                bitbake pedalpi-dev-platform -c do_image_tar | cat -
-            fi
-            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2
-            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/hardkernel-odroidc2/sentinelle.txt
+            source .circleci/build.sh odroid-c2 hardkernel-odroidc2 "pedalpi-dev-platform -c do_image_tar"
       - save_cache:
               key: dldir-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -128,17 +108,7 @@ jobs:
           name: Build the qemux86-64 image
           no_output_timeout: 90m
           command: |
-            source init.sh qemux86-64
-            echo 'SCONF_VERSION = "1"' > conf/site.conf
-            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
-                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
-            else
-                bitbake pedalpi-dev-platform | cat -
-            fi
-            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/qemux86-64
-            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/qemux86-64/sentinelle.txt
+            source .circleci/build.sh qemux86-64 qemux86-64
       - save_cache:
               key: dldir-v3-qemux86-{{ .Branch }}{{ .Revision }}
               paths:
@@ -179,17 +149,7 @@ jobs:
           name: Build the raspberrypi4 image
           no_output_timeout: 90m
           command: |
-            source init.sh raspberrypi4
-            echo 'SCONF_VERSION = "1"'  > conf/site.conf
-            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
-                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
-            else
-                bitbake pedalpi-dev-platform | cat -
-            fi
-            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi4
-            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi4/sentinelle.txt
+            source .circleci/build.sh raspberrypi4 raspberrypi4
       - save_cache:
               key: dldir-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
               paths:
@@ -230,17 +190,7 @@ jobs:
           name: Build the raspberrypi3 image
           no_output_timeout: 90m
           command: |
-            source init.sh raspberrypi3
-            echo 'SCONF_VERSION = "1"'  > conf/site.conf
-            echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
-            echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
-            if [[ $CIRCLE_JOB =~ .*step.* ]]; then
-                timeout -k 7200 5600 bash -c "bitbake pedalpi-dev-platform | cat -" || echo build is not finished yet
-            else
-                bitbake pedalpi-dev-platform | cat -
-            fi
-            mkdir -p /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi3
-            date > /home/yoctouser/project/pedalpi-src-build/tmp/deploy/images/raspberrypi3/sentinelle.txt
+            source .circleci/build.sh raspberrypi3 raspberrypi3
       - save_cache:
               key: dldir-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
               paths:
