@@ -5,7 +5,7 @@ TARGET=$2
 RECIPE=${3:-"pedalpi-dev-platform"}
 
 echo "Workaround for buggy sstate for bundler-native"
-rm -f /home/yoctouser/project/pedalpi-src-build/tmp/work/*/bundler-native/*/sysroot-destdir/home/yoctouser/project/pedalpi-src-build/tmp/work/*/bundler-native/*/recipe-sysroot-native/usr/bin/bundle
+rm -f /home/yoctouser/project/pedalpi-src-build/tmp/work/*/bundler-native/*/sysroot-destdir/home/yoctouser/project/pedalpi-src-build/tmp/work/*/bundler-native/*/recipe-sysroot-native/usr/bin/bundler
 
 source init.sh ${MACHINE}
 echo 'SCONF_VERSION = "1"' > conf/site.conf
