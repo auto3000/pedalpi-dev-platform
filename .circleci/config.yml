@@ -12,12 +12,14 @@ jobs:
       - checkout
       - restore_cache:
               keys:
+                  - sstate-v3-nanopi-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
                   - sstate-v3-nanopi-{{ .Branch }}-{{ .Revision }}
                   - sstate-v3-nanopi-{{ .Branch }}-
                   - sstate-v3-nanopi-
                   - sstate-v3-
       - restore_cache:
               keys:
+                  - dldir-v3-nanopi-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
                   - dldir-v3-nanopi-{{ .Branch }}-{{ .Revision }}
                   - dldir-v3-nanopi-{{ .Branch }}-
                   - dldir-v3-nanopi-
@@ -28,11 +30,11 @@ jobs:
           command: |
             source .circleci/build.sh nanopi-neo-air nanopi-neo-air
       - save_cache:
-              key: dldir-v3-nanopi-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-nanopi-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v3-nanopi-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-nanopi-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -53,13 +55,15 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-odroidc2-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+                  - sstate-v3-odroidc2-{{ .Branch }}-{{ .Revision }}-
                   - sstate-v3-odroidc2-{{ .Branch }}-
                   - sstate-v3-odroidc2-
                   - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-odroidc2-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+                  - dldir-v3-odroidc2-{{ .Branch }}-{{ .Revision }}-
                   - dldir-v3-odroidc2-{{ .Branch }}-
                   - dldir-v3-odroidc2-
                   - dldir-v3-
@@ -69,11 +73,11 @@ jobs:
           command: |
             source .circleci/build.sh odroid-c2 hardkernel-odroidc2 "pedalpi-dev-platform -c do_image_tar"
       - save_cache:
-              key: dldir-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-odroidc2-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v3-odroidc2-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-odroidc2-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -94,13 +98,15 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v3-qemux86-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-qemux86-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+                  - sstate-v3-qemux86-{{ .Branch }}-{{ .Revision }}-
                   - sstate-v3-qemux86-{{ .Branch }}-
                   - sstate-v3-qemux86-
                   - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v3-qemux86-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-qemux86-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+                  - dldir-v3-qemux86-{{ .Branch }}-{{ .Revision }}-
                   - dldir-v3-qemux86-{{ .Branch }}-
                   - dldir-v3-qemux86-
                   - dldir-v3-
@@ -110,11 +116,11 @@ jobs:
           command: |
             source .circleci/build.sh qemux86-64 qemux86-64
       - save_cache:
-              key: dldir-v3-qemux86-{{ .Branch }}{{ .Revision }}
+              key: dldir-v3-qemux86-{{ .Branch }}{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v3-qemux86-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-qemux86-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -135,13 +141,15 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+                  - sstate-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}-
                   - sstate-v3-raspberrypi4-{{ .Branch }}-
                   - sstate-v3-raspberrypi4-
                   - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+                  - dldir-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}-
                   - dldir-v3-raspberrypi4-{{ .Branch }}-
                   - dldir-v3-raspberrypi4-
                   - dldir-v3-
@@ -151,11 +159,11 @@ jobs:
           command: |
             source .circleci/build.sh raspberrypi4 raspberrypi4
       - save_cache:
-              key: dldir-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-raspberrypi4-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
@@ -176,13 +184,15 @@ jobs:
       - checkout
       - restore_cache:
               keys:
-                  - sstate-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+                  - sstate-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+                  - sstate-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}-
                   - sstate-v3-raspberrypi3-{{ .Branch }}-
                   - sstate-v3-raspberrypi3-
                   - sstate-v3-
       - restore_cache:
               keys:
-                  - dldir-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+                  - dldir-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
+                  - dldir-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}-
                   - dldir-v3-raspberrypi3-{{ .Branch }}-
                   - dldir-v3-raspberrypi3-
                   - dldir-v3-
@@ -192,11 +202,11 @@ jobs:
           command: |
             source .circleci/build.sh raspberrypi3 raspberrypi3
       - save_cache:
-              key: dldir-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+              key: dldir-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
-              key: sstate-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}
+              key: sstate-v3-raspberrypi3-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/sstate-cache"
       - store_artifacts:
