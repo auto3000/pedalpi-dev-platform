@@ -116,7 +116,7 @@ jobs:
           command: |
             source .circleci/build.sh qemux86-64 qemux86-64
       - save_cache:
-              key: dldir-v3-qemux86-{{ .Branch }}{{ .Revision }}-{{ .BuildNum }}
+              key: dldir-v3-qemux86-{{ .Branch }}-{{ .Revision }}-{{ .BuildNum }}
               paths:
                   - "/tmp/downloads"
       - save_cache:
