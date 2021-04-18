@@ -12,6 +12,7 @@ echo 'SCONF_VERSION = "1"' > conf/site.conf
 echo 'SSTATE_DIR ?= "/tmp/sstate-cache"' >> conf/site.conf
 echo 'DL_DIR ?= "/tmp/downloads"' >> conf/site.conf
 if [[ $CIRCLE_JOB =~ .*step.* ]]; then
+  bitbake -c cleansstate guitarix #workaround for corrupted sstate
   timeout -k 7200 5600 bash -c "bitbake ${RECIPE} | cat -" || echo build is not finished yet
 else
   bitbake ${RECIPE} | cat -
